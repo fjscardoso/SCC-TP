@@ -27,14 +27,13 @@ import java.util.*;
 public class UsersResource {
 
     AsyncDocumentClient client;
-    Map<String, List<String>> userPosts = new HashMap<>();
 
-    public UsersResource() throws StorageException, InvalidKeyException, URISyntaxException {
+    public UsersResource() {
         connect();
     }
 
 
-    public void connect() throws URISyntaxException, StorageException, InvalidKeyException {
+    public void connect() {
         ConnectionPolicy connectionPolicy = ConnectionPolicy.GetDefault();
         connectionPolicy.setConnectionMode(ConnectionMode.Direct);
         client = new AsyncDocumentClient.Builder()
@@ -55,7 +54,6 @@ public class UsersResource {
             String UsersCollection = getCollectionString("Users");
             Observable<ResourceResponse<Document>> resp = client.createDocument(UsersCollection, user, null, false);
             String a = resp.toBlocking().first().getResource().getSelfLink();
-            userPosts.get(name).add(a);
             return a;
         } catch (Exception e) {
             throw new WebApplicationException(Response.status(Response.Status.CONFLICT).build());
@@ -71,13 +69,19 @@ public class UsersResource {
         try {
 
             String UsersCollection = getCollectionString("Users");
-            FeedOptions queryOptions = new FeedOptions(); queryOptions.setEnableCrossPartitionQuery(true); queryOptions.setMaxDegreeOfParallelism(-1);
-            Iterator<FeedResponse<Document>> it = client.queryDocuments( UsersCollection,
-                    "SELECT * FROM Users u WHERE u.name = '" + name + "'", queryOptions).toBlocking().getIterator();
+            FeedOptions queryOptions = new FeedOptions();
+            queryOptions.setEnableCrossPartitionQuery(true);
+            queryOptions.setMaxDegreeOfParallelism(-1);
+            Iterator<FeedResponse<Document>> it = client.queryDocuments(UsersCollection,
+                    "SELECT u._self FROM Users u WHERE u.name = '" + name + "'", queryOptions).toBlocking().getIterator();
 
             String doc = it.next().getResults().get(0).toJson();
 
-                return doc;
+            doc = doc.substring(1, doc.indexOf(":"));
+            doc.replace("}", "");
+            doc.replaceAll("\"", "");
+
+            return doc;
         } catch (Exception e) {
             throw new WebApplicationException(Response.status(Response.Status.CONFLICT).build());
         }
@@ -88,23 +92,30 @@ public class UsersResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     public void deleteUser(@PathParam("name") String name) {
-        try {
 
-            for(String x : userPosts.get(name))
-                client.deleteDocument(x, null);
+        String UsersCollection = getCollectionString("Users");
+        FeedOptions queryOptions = new FeedOptions();
+        queryOptions.setEnableCrossPartitionQuery(true);
+        queryOptions.setMaxDegreeOfParallelism(-1);
+        Iterator<FeedResponse<Document>> it = client.queryDocuments(UsersCollection,
+                "SELECT u._self FROM Users u WHERE u.name = '" + name + "'", queryOptions).toBlocking().getIterator();
 
-        } catch (Exception e) {
-            throw new WebApplicationException(Response.status(Response.Status.CONFLICT).build());
-        }
+        String doc = it.next().getResults().get(0).toJson();
+
+        doc = doc.substring(0, doc.indexOf(":"));
+        doc.replaceAll("[^\\p{L}\\p{Nd}]+", "");
+        client.deleteDocument(doc, null);
+
     }
 
 
     /**
      * Returns the string to access a CosmosDB collection names col
+     *
      * @param col Name of collection
      * @return
      */
-    static String getCollectionString( String col) {
+    static String getCollectionString(String col) {
         return String.format("/dbs/%s/colls/%s", TestProperties.COSMOS_DB_DATABASE, col);
     }
 

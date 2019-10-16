@@ -61,7 +61,7 @@ public class TestAsyncAzure
     	queryOptions.setMaxDegreeOfParallelism(-1);
 
     	Iterator<FeedResponse<Document>> it = client.queryDocuments(
-    	        UsersCollection, "SELECT _self FROM Users",
+    	        UsersCollection, "SELECT u._self FROM Users u",
     	        queryOptions).toBlocking().getIterator();
 
     	System.out.println( "Result:");

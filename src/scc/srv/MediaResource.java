@@ -1,7 +1,6 @@
 package scc.srv;
 
 import com.microsoft.azure.storage.CloudStorageAccount;
-import com.microsoft.azure.storage.StorageException;
 import com.microsoft.azure.storage.blob.CloudBlob;
 import com.microsoft.azure.storage.blob.CloudBlobClient;
 import com.microsoft.azure.storage.blob.CloudBlobContainer;
@@ -11,27 +10,26 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.security.InvalidKeyException;
 import java.util.ArrayList;
 import java.util.List;
 
 @Path("/media")
 public class MediaResource {
 
-    String storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=scc42997;AccountKey=IUDnP8H4FgPOrVu3BoQN9VEUHPUw8osO8GS5wLVCD3OklK32H3v5Kvf0P3guD9k11A9b7T4xC/LjDaFdtWPOWw==;EndpointSuffix=core.windows.net";
+    String storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=scc42997;AccountKey=upfj+TxGFFVlFq0bye5ZrxEMeSYZ5+P+Cx+tCwDBc+v0s5CPvsrwy7HcS62N6Gt5ZyYRWpvs79rvKcutp4E6Qg==;EndpointSuffix=core.windows.net";
     CloudBlobContainer container;
     CloudBlobClient blobClient;
 
-    public void connect() throws URISyntaxException, StorageException, InvalidKeyException {
+    public CloudBlobContainer connect() {
         try {
             CloudStorageAccount storageAccount = CloudStorageAccount.parse(storageConnectionString);
             blobClient = storageAccount.createCloudBlobClient();
             container = blobClient.getContainerReference("images");
+            return container;
         }
         catch(Exception e){
             container = null;
+            return container;
         }
 
     }
@@ -40,7 +38,7 @@ public class MediaResource {
     @POST
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
     @Produces(MediaType.APPLICATION_JSON)
-    public String createContainer(@PathParam("name") String name) throws StorageException, URISyntaxException, InvalidKeyException {
+    public String createContainer(@PathParam("name") String name) {
 
         if(container == null)
             connect();
@@ -63,7 +61,7 @@ public class MediaResource {
     @POST
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
     @Produces(MediaType.APPLICATION_JSON)
-    public String upload( byte[] contents) throws StorageException, URISyntaxException, InvalidKeyException {
+    public String upload( byte[] contents) {
             if(container == null)
                 connect();
 
@@ -87,7 +85,7 @@ public class MediaResource {
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public byte[] download(@PathParam("uid") String uid) throws URISyntaxException, StorageException, InvalidKeyException {
+    public byte[] download(@PathParam("uid") String uid) {
 
         if(container == null)
             connect();
@@ -108,7 +106,7 @@ public class MediaResource {
 
     @Path("/{uid}")
     @DELETE
-    public void delete(@PathParam("uid") String uid) throws URISyntaxException, StorageException, InvalidKeyException {
+    public void delete(@PathParam("uid") String uid) {
 
         if(container == null)
             connect();
@@ -126,7 +124,7 @@ public class MediaResource {
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public List<String> list() throws StorageException, InvalidKeyException, URISyntaxException {
+    public List<String> list() {
 
         if(container == null)
             connect();

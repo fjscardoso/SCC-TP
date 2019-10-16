@@ -12,16 +12,19 @@ public class Post
     //reference to the parent post (string, optional)
 
     private String community;
-    private String id;
+    private String postId;
     private String creator;
     private String content;
+    private String uId;
+    private byte[] image;
+    private int likes;
 
     public String getId() {
-        return id;
+        return postId;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.postId = postId;
     }
 
     public String getCreator() {
@@ -46,6 +49,30 @@ public class Post
 
     public void setCommunity(String community) {
         this.community = community;
+    }
+
+    public String getuId() {
+        return uId;
+    }
+
+    public void setuId(String uId) {
+        this.uId = uId;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
     }
 }
 
