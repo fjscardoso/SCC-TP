@@ -1,6 +1,7 @@
 package scc.resources;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Post
@@ -11,28 +12,52 @@ public class Post
     //link to one multimedia object (string, optional),
     //reference to the parent post (string, optional)
 
+    private String title;
+    private String content;
     private String community;
     private String postId;
-    private String creator;
-    private String content;
-    private String uId;
-    private byte[] image;
+    private String userId;
+    private String contentId;
     private int likes;
 
-    public String getId() {
+    public String getCommunity() {
+        return community;
+    }
+
+    public void setCommunity(String community) {
+        this.community = community;
+    }
+
+    public String getPostId() {
         return postId;
     }
 
-    public void setId(String id) {
+    public void setPostId(String postId) {
         this.postId = postId;
     }
 
-    public String getCreator() {
-        return creator;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setCreator(String creator) {
-        this.creator = creator;
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getContentId() {
+        return contentId;
+    }
+
+    public void setContentId(String contentId) {
+        this.contentId = contentId;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
     }
 
     public String getContent() {
@@ -43,36 +68,12 @@ public class Post
         this.content = content;
     }
 
-    public String getCommunity() {
-        return community;
+    public String getTitle() {
+        return title;
     }
 
-    public void setCommunity(String community) {
-        this.community = community;
-    }
-
-    public String getuId() {
-        return uId;
-    }
-
-    public void setuId(String uId) {
-        this.uId = uId;
-    }
-
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
-    public int getLikes() {
-        return likes;
-    }
-
-    public void setLikes(int likes) {
-        this.likes = likes;
+    public void setTitle(String title) {
+        this.title = title;
     }
 }
 

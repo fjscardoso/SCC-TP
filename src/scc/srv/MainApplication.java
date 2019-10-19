@@ -16,6 +16,7 @@ public class MainApplication extends Application {
         set.add( MediaResource.class );
         set.add( UsersResource.class );
         set.add( PostsResource.class );
+        set.add( CommunityResource.class );
         return set;
     }
 }

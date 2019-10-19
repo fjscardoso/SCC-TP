@@ -4,6 +4,7 @@ import com.microsoft.azure.cosmosdb.*;
 import com.microsoft.azure.cosmosdb.rx.AsyncDocumentClient;
 import com.microsoft.azure.storage.blob.CloudBlob;
 import com.microsoft.azure.storage.blob.CloudBlobContainer;
+import org.glassfish.jersey.media.multipart.FormDataParam;
 import rx.Observable;
 import scc.resources.Post;
 import scc.scc_frontend.TestProperties;
@@ -35,36 +36,43 @@ public class PostsResource {
                 .withConsistencyLevel(ConsistencyLevel.Eventual).build();
     }
 
-    @POST
-    @Consumes(MediaType.MULTIPART_FORM_DATA)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String addPost(Post post) {
-        try {
+     @POST
+     @Consumes(MediaType.APPLICATION_JSON)
+     @Produces(MediaType.TEXT_PLAIN)
+     public String addPost(Post post) {
+     try {
 
-            String PostsCollection = getCollectionString("Posts");
+/**     String UsersCollection = getCollectionString("Users");
+     FeedOptions queryOptions = new FeedOptions();
+     queryOptions.setEnableCrossPartitionQuery(true);
+     queryOptions.setMaxDegreeOfParallelism(-1);
+     Iterator<FeedResponse<Document>> it = client.queryDocuments(UsersCollection,
+     "SELECT * FROM Users u WHERE u.name = '" + post.getUserId() + "'", queryOptions).toBlocking().getIterator();
 
-            String hash = "" + post.getImage().hashCode();
-            post.setuId(hash);
+     if(it.next().getResults().get(0).toJson().equals(null))
+     throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).build());
+*/
+     String postId = "" + (post.getUserId() + post.getCommunity() +  post.getTitle()).hashCode();
+     post.setPostId(postId);
 
-            Observable<ResourceResponse<Document>> resp = client.createDocument(PostsCollection, post, null, false);
+     String PostsCollection = getCollectionString("Posts");
 
-            CloudBlob blob = container.getBlockBlobReference(hash);
+     Observable<ResourceResponse<Document>> resp = client.createDocument(PostsCollection, post, null, false);
 
-            blob.uploadFromByteArray(post.getImage(), 0, post.getImage().length);
+     return resp.toBlocking().first().getResource().getSelfLink();
+         // return postId;
 
-            return resp.toBlocking().first().getResource().getSelfLink();
+     } catch (Exception e) {
+     throw new WebApplicationException(Response.status(Response.Status.CONFLICT).build());
+     }
 
-        } catch (Exception e) {
-            throw new WebApplicationException(Response.status(Response.Status.CONFLICT).build());
-        }
-
-    }
+     }
 
     @GET
     @Path("/{postId}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public String getPost(@PathParam("postId") String name) {
+    public String getPost(@PathParam("postId") String postId) {
         try {
 
             String PostsCollection = getCollectionString("Posts");
@@ -72,23 +80,40 @@ public class PostsResource {
             queryOptions.setEnableCrossPartitionQuery(true);
             queryOptions.setMaxDegreeOfParallelism(-1);
             Iterator<FeedResponse<Document>> it = client.queryDocuments(PostsCollection,
-                    "SELECT * FROM Posts u WHERE u.id = '" + name + "'", queryOptions).toBlocking().getIterator();
+                    "SELECT * FROM Posts u WHERE u.postId = '" + postId + "'", queryOptions).toBlocking().getIterator();
 
-            String doc = it.next().getResults().get(0).toJson();
 
-            return doc;
+            Post post = it.next().getResults().get(0).toObject(Post.class);
+
+            return post.getPostId();
         } catch (Exception e) {
-            throw new WebApplicationException(Response.status(Response.Status.CONFLICT).build());
+            throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).build());
         }
     }
 
     @DELETE
-    @Path("/{name}")
+    @Path("/{postId}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public void deletePost(@PathParam("name") String name) {
+    public void deletePost(@PathParam("postId") String postId) {
+        try {
+
+            String PostsCollection = getCollectionString("Posts");
+            FeedOptions queryOptions = new FeedOptions();
+            queryOptions.setEnableCrossPartitionQuery(true);
+            queryOptions.setMaxDegreeOfParallelism(-1);
+            Iterator<FeedResponse<Document>> it = client.queryDocuments(PostsCollection,
+                    "SELECT * FROM Posts u WHERE u.postId = '" + postId + "'", queryOptions).toBlocking().getIterator();
+
+            client.deleteDocument(it.next().getResults().get(0).getSelfLink(), null);
+
+        } catch (Exception e) {
+            throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).build());
+        }
 
     }
+
+
 
 
     /**

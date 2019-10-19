@@ -1,24 +1,43 @@
 package scc.srv;
 
+import com.microsoft.azure.cosmosdb.*;
+import com.microsoft.azure.cosmosdb.rx.AsyncDocumentClient;
 import com.microsoft.azure.storage.CloudStorageAccount;
 import com.microsoft.azure.storage.blob.CloudBlob;
 import com.microsoft.azure.storage.blob.CloudBlobClient;
 import com.microsoft.azure.storage.blob.CloudBlobContainer;
 import com.microsoft.azure.storage.blob.ListBlobItem;
+import scc.resources.Post;
+import scc.scc_frontend.TestProperties;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Path("/media")
 public class MediaResource {
 
-    String storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=scc42997;AccountKey=upfj+TxGFFVlFq0bye5ZrxEMeSYZ5+P+Cx+tCwDBc+v0s5CPvsrwy7HcS62N6Gt5ZyYRWpvs79rvKcutp4E6Qg==;EndpointSuffix=core.windows.net";
+    String storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=scc42997;AccountKey=8nrgNSUBYzPZzC9jf5Es+jloHEkEkV2Es0r33qIVNDOSodFtw7VRVV/D136RiV39TZmc4V/psI4usDyEKuuyOg==;EndpointSuffix=core.windows.net";
     CloudBlobContainer container;
     CloudBlobClient blobClient;
+    AsyncDocumentClient client;
+
+    public MediaResource(){
+
+        connect();
+
+        ConnectionPolicy connectionPolicy = ConnectionPolicy.GetDefault();
+        connectionPolicy.setConnectionMode(ConnectionMode.Direct);
+        client = new AsyncDocumentClient.Builder()
+                .withServiceEndpoint(TestProperties.COSMOS_DB_ENDPOINT)
+                .withMasterKeyOrResourceToken(TestProperties.COSMOS_DB_MASTER_KEY)
+                .withConnectionPolicy(connectionPolicy)
+                .withConsistencyLevel(ConsistencyLevel.Eventual).build();
+    }
 
     public CloudBlobContainer connect() {
         try {
@@ -57,11 +76,11 @@ public class MediaResource {
 
     }
 
-
+    @Path("/upload/{postId}")
     @POST
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
     @Produces(MediaType.APPLICATION_JSON)
-    public String upload( byte[] contents) {
+    public String upload(byte[] contents) {
             if(container == null)
                 connect();
 
@@ -72,7 +91,20 @@ public class MediaResource {
 
                 blob.uploadFromByteArray(contents, 0, contents.length);
 
+                String PostsCollection = getCollectionString("Posts");
+                FeedOptions queryOptions = new FeedOptions();
+                queryOptions.setEnableCrossPartitionQuery(true);
+                queryOptions.setMaxDegreeOfParallelism(-1);
+                Iterator<FeedResponse<Document>> it = client.queryDocuments(PostsCollection,
+                        "SELECT * FROM Posts u WHERE u.postId = '" + postId + "'", queryOptions).toBlocking().getIterator();
+                Document doc = it.next().getResults().get(0);
+                Post post = it.next().getResults().get(0).toObject(Post.class);
+
+                post.setContentId(hash);
+
+                client.replaceDocument(doc.getSelfLink(), post, null);
                 return hash;
+
             }
             catch(Exception x){
                 throw new WebApplicationException(Response.status(Response.Status.CONFLICT).build());
@@ -136,5 +168,15 @@ public class MediaResource {
 
         return aux;
 
+    }
+
+    /**
+     * Returns the string to access a CosmosDB collection names col
+     *
+     * @param col Name of collection
+     * @return
+     */
+    static String getCollectionString(String col) {
+        return String.format("/dbs/%s/colls/%s", TestProperties.COSMOS_DB_DATABASE, col);
     }
 }

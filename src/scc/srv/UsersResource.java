@@ -73,17 +73,15 @@ public class UsersResource {
             queryOptions.setEnableCrossPartitionQuery(true);
             queryOptions.setMaxDegreeOfParallelism(-1);
             Iterator<FeedResponse<Document>> it = client.queryDocuments(UsersCollection,
-                    "SELECT u._self FROM Users u WHERE u.name = '" + name + "'", queryOptions).toBlocking().getIterator();
+                    "SELECT * FROM Users u WHERE u.name = '" + name + "'", queryOptions).toBlocking().getIterator();
 
             String doc = it.next().getResults().get(0).toJson();
 
-            doc = doc.substring(1, doc.indexOf(":"));
-            doc.replace("}", "");
-            doc.replaceAll("\"", "");
 
             return doc;
+
         } catch (Exception e) {
-            throw new WebApplicationException(Response.status(Response.Status.CONFLICT).build());
+            throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).build());
         }
     }
 
@@ -98,13 +96,9 @@ public class UsersResource {
         queryOptions.setEnableCrossPartitionQuery(true);
         queryOptions.setMaxDegreeOfParallelism(-1);
         Iterator<FeedResponse<Document>> it = client.queryDocuments(UsersCollection,
-                "SELECT u._self FROM Users u WHERE u.name = '" + name + "'", queryOptions).toBlocking().getIterator();
+                "SELECT * FROM Users u WHERE u.name = '" + name + "'", queryOptions).toBlocking().getIterator();
 
-        String doc = it.next().getResults().get(0).toJson();
-
-        doc = doc.substring(0, doc.indexOf(":"));
-        doc.replaceAll("[^\\p{L}\\p{Nd}]+", "");
-        client.deleteDocument(doc, null);
+        client.deleteDocument(it.next().getResults().get(0).getSelfLink(), null);
 
     }
 
