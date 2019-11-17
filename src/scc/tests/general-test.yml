@@ -1,0 +1,107 @@
+#Create initial set of posts
+config:
+  target: 'https://42997.azurewebsites.net'
+  plugins:
+    metrics-by-endpoint: {}
+  http:
+    pool: 60
+  processor: "./test-utils.js"
+  phases:
+    - duration: 10
+      arrivalRate: 10
+
+scenarios:
+  - name: "Random reader"
+    weight: 10
+    flow:
+      - function: "startBrowse"
+      - get:
+          url: "/post/last/redis"
+          afterResponse: "selectFromPostList"
+      - loop:
+        - get:
+            ifTrue: "hasNextid"
+            url: "/post/thread/{{ nextid }}"
+            afterResponse: "selectFromPostList"
+        - post:
+            ifTrue: "like"
+            url: "/like/{{ curid }}/{{ likeUser }}"
+        - function: "genNewPost"
+        - post:
+            ifTrue: "hasImage and reply"
+            url: "/media"
+            headers:
+              Content-Type: application/octet-stream
+              Accept: text/plain
+            beforeRequest: "setNewPostImageBody"
+            afterResponse: "genNewImageReply"            
+        - post:
+            ifTrue: "reply"
+            url: "/post/p"
+            headers:
+              Accept: text/plain
+            json:
+              community: "{{ community }}"
+              creator: "{{ creator }}"
+              msg: "{{ msg }}"
+              image: "{{ imageId }}"
+              parentId: "{{ curid }}"
+            afterResponse: "genNewPostReply"
+        whileTrue: "endBrowse"
+
+  - name: "Troll"
+    weight: 1
+    flow:
+      - function: "startBrowse"
+      - get:
+          url: "/post/last/redis"
+          afterResponse: "selectAllFromPostList"
+      - loop:
+        - get:
+            ifTrue: "hasNextid"
+            url: "/post/thread/{{ nextid }}"
+        - function: "genNewPost"
+        - post:
+            ifTrue: "hasImage"
+            url: "/media"
+            headers:
+              Content-Type: application/octet-stream
+              Accept: text/plain
+            beforeRequest: "setNewPostImageBody"
+            afterResponse: "genNewImageReply"            
+        - post:
+            url: "/post/p"
+            headers:
+              Accept: text/plain
+            json:
+              community: "{{ community }}"
+              creator: "{{ creator }}"
+              msg: "{{ msg }}"
+              image: "{{ imageId }}"
+              parentId: "{{ nextid }}"
+            afterResponse: "genNewPostReply"
+        whileTrue: "hasMoreInBrowseList"
+
+  - name: 'Create root post'
+    weight: 2
+    flow:
+      - function: "genNewPost"
+      - post:
+          url: "/media"
+          headers:
+            Content-Type: application/octet-stream
+            Accept: text/plain
+          beforeRequest: "setNewPostImageBody"
+          afterResponse: "genNewImageReply"            
+          ifTrue: "hasImage"
+      - post:
+          url: "/post/p"
+          headers:
+            Accept: text/plain
+          json:
+            community: "{{ community }}"
+            creator: "{{ creator }}"
+            msg: "{{ msg }}"
+            image: "{{ imageId }}"
+            parentId: ""
+          afterResponse: "genNewPostReply"

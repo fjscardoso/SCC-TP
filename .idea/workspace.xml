@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c37997e5-0259-4b71-b537-6ecd195c7f62" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jersey_media_jersey_media_multipart_2_17.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jvnet_mimepull_mimepull_1_9_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src.zip" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/scc/resources/Community.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_pool2_2_4_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__redis_clients_jedis_2_9_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/resources/Like.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/artifacts/scc_backend_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/scc_backend_war_exploded.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
@@ -13,7 +12,6 @@
       <change beforePath="$PROJECT_DIR$/src/scc/resources/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/resources/Post.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scc/scc_frontend/TestProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/scc_frontend/TestProperties.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scc/srv/CommunityResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/srv/CommunityResource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scc/srv/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/srv/MainApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scc/srv/MediaResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/srv/MediaResource.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scc/srv/PostsResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/srv/PostsResource.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scc/srv/UsersResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/srv/UsersResource.java" afterDir="false" />
@@ -22,7 +20,7 @@
       <change beforePath="$PROJECT_DIR$/target/classes/scc/scc_frontend/CreateDatabaseAndCollections.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scc/scc_frontend/CreateDatabaseAndCollections.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/scc/scc_frontend/TestAsyncAzure.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scc/scc_frontend/TestAsyncAzure.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/scc/scc_frontend/TestProperties.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scc/scc_frontend/TestProperties.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/scc/srv/MainApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scc/srv/MainApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scc/srv/CommunityResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scc/srv/CommunityResource.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/scc/srv/MediaResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scc/srv/MediaResource.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/scc/srv/PostsResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scc/srv/PostsResource.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/scc/srv/UsersResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scc/srv/UsersResource.class" afterDir="false" />
@@ -33,7 +31,7 @@
       <change beforePath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/scc_frontend/CreateDatabaseAndCollections.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/scc_frontend/CreateDatabaseAndCollections.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/scc_frontend/TestAsyncAzure.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/scc_frontend/TestAsyncAzure.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/scc_frontend/TestProperties.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/scc_frontend/TestProperties.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/srv/MainApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/srv/MainApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/srv/CommunityResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/srv/CommunityResource.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/srv/MediaResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/srv/MediaResource.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/srv/PostsResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/srv/PostsResource.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/srv/UsersResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/srv/UsersResource.class" afterDir="false" />
@@ -161,6 +159,15 @@
       <workItem from="1571426995814" duration="213000" />
       <workItem from="1571433455548" duration="1921000" />
       <workItem from="1571504508989" duration="8752000" />
+      <workItem from="1571537224798" duration="3981000" />
+      <workItem from="1571545530211" duration="3247000" />
+      <workItem from="1571617608174" duration="9013000" />
+      <workItem from="1571635307176" duration="419000" />
+      <workItem from="1571694011797" duration="3000" />
+      <workItem from="1571700106508" duration="2670000" />
+      <workItem from="1571752420932" duration="1254000" />
+      <workItem from="1571779317221" duration="5328000" />
+      <workItem from="1571788695962" duration="351000" />
     </task>
     <servers />
   </component>

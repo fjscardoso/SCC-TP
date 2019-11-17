@@ -7,6 +7,7 @@ import com.microsoft.azure.storage.blob.CloudBlob;
 import com.microsoft.azure.storage.blob.CloudBlobClient;
 import com.microsoft.azure.storage.blob.CloudBlobContainer;
 import com.microsoft.azure.storage.blob.ListBlobItem;
+import rx.Observable;
 import scc.resources.Post;
 import scc.scc_frontend.TestProperties;
 
@@ -21,7 +22,7 @@ import java.util.List;
 @Path("/media")
 public class MediaResource {
 
-    String storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=scc42997;AccountKey=8nrgNSUBYzPZzC9jf5Es+jloHEkEkV2Es0r33qIVNDOSodFtw7VRVV/D136RiV39TZmc4V/psI4usDyEKuuyOg==;EndpointSuffix=core.windows.net";
+    String storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=scc42997;AccountKey=yPh/Eit89QCMxoxfs0O05fG5T/hHnwy/qbaXFwieWupDMl9K6Qn6VxdumNDiFwXW/rIZqlzN/UDwzvBembnCVw==;EndpointSuffix=core.windows.net";
     CloudBlobContainer container;
     CloudBlobClient blobClient;
     AsyncDocumentClient client;
@@ -80,7 +81,7 @@ public class MediaResource {
     @POST
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
     @Produces(MediaType.APPLICATION_JSON)
-    public String upload(byte[] contents) {
+    public String upload(@PathParam("postId") String postId, byte[] contents) {
             if(container == null)
                 connect();
 
@@ -97,13 +98,18 @@ public class MediaResource {
                 queryOptions.setMaxDegreeOfParallelism(-1);
                 Iterator<FeedResponse<Document>> it = client.queryDocuments(PostsCollection,
                         "SELECT * FROM Posts u WHERE u.postId = '" + postId + "'", queryOptions).toBlocking().getIterator();
-                Document doc = it.next().getResults().get(0);
+
                 Post post = it.next().getResults().get(0).toObject(Post.class);
 
-                post.setContentId(hash);
+                post.setFileId(hash);
 
-                client.replaceDocument(doc.getSelfLink(), post, null);
+                Observable<ResourceResponse<Document>> resp = client.replaceDocument(post.get_self(), post, null);
+
+                resp.subscribe();
+
                 return hash;
+
+
 
             }
             catch(Exception x){

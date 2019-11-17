@@ -55,8 +55,10 @@ public class CommunityResource {
             Iterator<FeedResponse<Document>> it = client.queryDocuments(PostsCollection,
                     "SELECT * FROM Posts u WHERE u.community = '" + communityName + "'", queryOptions).toBlocking().getIterator();
 
-            while(it.hasNext()) {
-                String doc = it.next().getResults().get(0).toJson();
+            FeedResponse<Document> feed = it.next();
+
+            for(int i = 0; i < feed.getResults().size(); i++) {
+                String doc = feed.getResults().get(i).toJson();
                 list.add(doc);
             }
             return list;
@@ -81,6 +83,32 @@ public class CommunityResource {
             throw new WebApplicationException(Response.status(Response.Status.CONFLICT).build());
         }
 
+    }
+
+    @GET
+    @Path("/test/{communityName}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+    public int test(@PathParam("communityName") String communityName) {
+        try {
+
+            List<String> list = new LinkedList<>();
+
+            String PostsCollection = getCollectionString("Posts");
+            FeedOptions queryOptions = new FeedOptions();
+            queryOptions.setEnableCrossPartitionQuery(true);
+            queryOptions.setMaxDegreeOfParallelism(-1);
+            Iterator<FeedResponse<Document>> it = client.queryDocuments(PostsCollection,
+                    "SELECT * FROM Posts u WHERE u.community = '" + communityName + "'", queryOptions).toBlocking().getIterator();
+
+            FeedResponse<Document> feed = it.next();
+
+            return feed.getResults().size();
+
+
+        } catch (Exception e) {
+            throw new WebApplicationException(Response.status(Response.Status.CONFLICT).build());
+        }
     }
 }
 

@@ -3,6 +3,8 @@ package scc.resources;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.time.LocalDateTime;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Post
 {
@@ -17,8 +19,31 @@ public class Post
     private String community;
     private String postId;
     private String userId;
-    private String contentId;
+    private String fileId;
+    private String date;
     private int likes;
+    private String id;
+    private String _rid;
+    private String _self;
+    private String _etag;
+    private String _attachments;
+    private String _ts;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 
     public String getCommunity() {
         return community;
@@ -44,12 +69,20 @@ public class Post
         this.userId = userId;
     }
 
-    public String getContentId() {
-        return contentId;
+    public String getFileId() {
+        return fileId;
     }
 
-    public void setContentId(String contentId) {
-        this.contentId = contentId;
+    public void setFileId(String fileId) {
+        this.fileId = fileId;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public int getLikes() {
@@ -60,20 +93,52 @@ public class Post
         this.likes = likes;
     }
 
-    public String getContent() {
-        return content;
+    public String getId() {
+        return id;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String get_rid() {
+        return _rid;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void set_rid(String _rid) {
+        this._rid = _rid;
+    }
+
+    public String get_self() {
+        return _self;
+    }
+
+    public void set_self(String _self) {
+        this._self = _self;
+    }
+
+    public String get_etag() {
+        return _etag;
+    }
+
+    public void set_etag(String _etag) {
+        this._etag = _etag;
+    }
+
+    public String get_attachments() {
+        return _attachments;
+    }
+
+    public void set_attachments(String _attachments) {
+        this._attachments = _attachments;
+    }
+
+    public String get_ts() {
+        return _ts;
+    }
+
+    public void set_ts(String _ts) {
+        this._ts = _ts;
     }
 }
 

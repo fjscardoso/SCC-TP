@@ -21,6 +21,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.InvalidKeyException;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Path("/users")
@@ -53,8 +54,8 @@ public class UsersResource {
             user.setName(name);
             String UsersCollection = getCollectionString("Users");
             Observable<ResourceResponse<Document>> resp = client.createDocument(UsersCollection, user, null, false);
-            String a = resp.toBlocking().first().getResource().getSelfLink();
-            return a;
+            return resp.toBlocking().first().getResource().getSelfLink();
+
         } catch (Exception e) {
             throw new WebApplicationException(Response.status(Response.Status.CONFLICT).build());
         }
@@ -77,7 +78,6 @@ public class UsersResource {
 
             String doc = it.next().getResults().get(0).toJson();
 
-
             return doc;
 
         } catch (Exception e) {
@@ -99,6 +99,7 @@ public class UsersResource {
                 "SELECT * FROM Users u WHERE u.name = '" + name + "'", queryOptions).toBlocking().getIterator();
 
         client.deleteDocument(it.next().getResults().get(0).getSelfLink(), null);
+
 
     }
 

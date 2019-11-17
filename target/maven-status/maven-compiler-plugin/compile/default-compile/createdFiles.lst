@@ -1,12 +1,13 @@
 scc/scc_frontend/CreateDatabaseAndCollections.class
-scc/resources/User.class
 scc/srv/CommunityResource.class
-scc/scc_frontend/TestAsyncAzure.class
-scc/resources/Post.class
 scc/srv/UsersResource.class
 scc/scc_frontend/TestUsers.class
-scc/srv/MainApplication.class
 scc/resources/Community.class
 scc/srv/PostsResource.class
 scc/scc_frontend/TestProperties.class
 scc/srv/MediaResource.class
+scc/resources/User.class
+scc/scc_frontend/TestAsyncAzure.class
+scc/resources/Post.class
+scc/resources/Like.class
+scc/srv/MainApplication.class

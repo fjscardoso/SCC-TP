@@ -1,11 +1,13 @@
+/Users/fjcardoso/Documents/SCC/scc-backend/src/scc/srv/MainApplication.java
+/Users/fjcardoso/Documents/SCC/scc-backend/src/scc/resources/Post.java
+/Users/fjcardoso/Documents/SCC/scc-backend/src/scc/srv/CommunityResource.java
+/Users/fjcardoso/Documents/SCC/scc-backend/src/scc/srv/UsersResource.java
 /Users/fjcardoso/Documents/SCC/scc-backend/src/scc/scc_frontend/TestProperties.java
+/Users/fjcardoso/Documents/SCC/scc-backend/src/scc/resources/Like.java
 /Users/fjcardoso/Documents/SCC/scc-backend/src/scc/scc_frontend/CreateDatabaseAndCollections.java
 /Users/fjcardoso/Documents/SCC/scc-backend/src/scc/srv/PostsResource.java
 /Users/fjcardoso/Documents/SCC/scc-backend/src/scc/scc_frontend/TestAsyncAzure.java
 /Users/fjcardoso/Documents/SCC/scc-backend/src/scc/srv/MediaResource.java
-/Users/fjcardoso/Documents/SCC/scc-backend/src/scc/srv/MainApplication.java
-/Users/fjcardoso/Documents/SCC/scc-backend/src/scc/resources/Post.java
 /Users/fjcardoso/Documents/SCC/scc-backend/src/scc/scc_frontend/TestUsers.java
 /Users/fjcardoso/Documents/SCC/scc-backend/src/scc/resources/User.java
-/Users/fjcardoso/Documents/SCC/scc-backend/src/scc/srv/CommunityResource.java
-/Users/fjcardoso/Documents/SCC/scc-backend/src/scc/srv/UsersResource.java
+/Users/fjcardoso/Documents/SCC/scc-backend/src/scc/resources/Community.java

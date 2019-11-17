@@ -1,0 +1,1 @@
+docker run -v $(pwd):/config -t nunopreguica/ccs1920-test artillery run create-posts.yml
