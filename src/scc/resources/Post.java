@@ -1,9 +1,6 @@
 package scc.resources;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.time.LocalDateTime;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Post
@@ -15,12 +12,12 @@ public class Post
     //reference to the parent post (string, optional)
 
     private String title;
-    private String content;
+    private String msg;
     private String community;
-    private String postId;
-    private String userId;
-    private String fileId;
+    private String creator;
+    private String imageId;
     private String date;
+    private String parentId;
     private int likes;
     private String id;
     private String _rid;
@@ -37,14 +34,6 @@ public class Post
         this.title = title;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
     public String getCommunity() {
         return community;
     }
@@ -53,28 +42,12 @@ public class Post
         this.community = community;
     }
 
-    public String getPostId() {
-        return postId;
+    public String getImageId() {
+        return imageId;
     }
 
-    public void setPostId(String postId) {
-        this.postId = postId;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getFileId() {
-        return fileId;
-    }
-
-    public void setFileId(String fileId) {
-        this.fileId = fileId;
+    public void setImageId(String imageId) {
+        this.imageId = imageId;
     }
 
     public String getDate() {
@@ -139,6 +112,30 @@ public class Post
 
     public void set_ts(String _ts) {
         this._ts = _ts;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+
+    public String getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 }
 

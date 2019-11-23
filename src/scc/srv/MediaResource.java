@@ -9,7 +9,6 @@ import com.microsoft.azure.storage.blob.CloudBlobContainer;
 import com.microsoft.azure.storage.blob.ListBlobItem;
 import rx.Observable;
 import scc.resources.Post;
-import scc.scc_frontend.TestProperties;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -22,7 +21,6 @@ import java.util.List;
 @Path("/media")
 public class MediaResource {
 
-    String storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=scc42997;AccountKey=yPh/Eit89QCMxoxfs0O05fG5T/hHnwy/qbaXFwieWupDMl9K6Qn6VxdumNDiFwXW/rIZqlzN/UDwzvBembnCVw==;EndpointSuffix=core.windows.net";
     CloudBlobContainer container;
     CloudBlobClient blobClient;
     AsyncDocumentClient client;
@@ -42,7 +40,7 @@ public class MediaResource {
 
     public CloudBlobContainer connect() {
         try {
-            CloudStorageAccount storageAccount = CloudStorageAccount.parse(storageConnectionString);
+            CloudStorageAccount storageAccount = CloudStorageAccount.parse(TestProperties.STORAGE_CONNECTION_STRING);
             blobClient = storageAccount.createCloudBlobClient();
             container = blobClient.getContainerReference("images");
             return container;
@@ -101,7 +99,7 @@ public class MediaResource {
 
                 Post post = it.next().getResults().get(0).toObject(Post.class);
 
-                post.setFileId(hash);
+                post.setImageId(hash);
 
                 Observable<ResourceResponse<Document>> resp = client.replaceDocument(post.get_self(), post, null);
 

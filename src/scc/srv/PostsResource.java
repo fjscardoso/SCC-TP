@@ -2,9 +2,8 @@ package scc.srv;
 
 import com.microsoft.azure.cosmosdb.*;
 import com.microsoft.azure.cosmosdb.rx.AsyncDocumentClient;
-import com.microsoft.azure.storage.blob.CloudBlob;
+import com.microsoft.azure.cosmosdb.RequestOptions;
 import com.microsoft.azure.storage.blob.CloudBlobContainer;
-import org.glassfish.jersey.media.multipart.FormDataParam;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -12,7 +11,6 @@ import redis.clients.jedis.JedisShardInfo;
 import rx.Observable;
 import scc.resources.Like;
 import scc.resources.Post;
-import scc.scc_frontend.TestProperties;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -20,10 +18,9 @@ import javax.ws.rs.core.Response;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
-@Path("/posts")
+@Path("/post")
 public class PostsResource {
 
     AsyncDocumentClient client;
@@ -82,26 +79,25 @@ public class PostsResource {
      if(it.next().getResults().get(0).toJson().equals(null))
      throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).build());
 */
-     String postId = "" + (post.getUserId() + post.getCommunity() +  post.getTitle()).hashCode();
-     post.setPostId(postId);
      post.setDate(LocalDateTime.now().toString());
 
      String PostsCollection = getCollectionString("Posts");
 
      Observable<ResourceResponse<Document>> resp = client.createDocument(PostsCollection, post, null, false);
 
-     //try (Jedis jedis = jedisPool.getResource()) {
-     //        Long cnt = jedis.hset("MostRecentPosts", "postId", resp.toBlocking().first().getResource().toJson());
-     //        if (cnt > 5)
-     //        jedis.ltrim("MostRecentPosts", 0, 5);
-      //   }
+     Document doc = resp.toBlocking().first().getResource();
 
-     return resp.toBlocking().first().getResource().getSelfLink();
+     try (Jedis jedis = jedisPool.getResource()) {
+             Long cnt = jedis.lpush("MostRecentPosts", doc.toJson());
+             if (cnt > 10)
+             jedis.ltrim("MostRecentPosts", 0, 10);
+         }
 
-         // return postId;
+     return doc.get("id").toString();
 
      } catch (Exception e) {
-         throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR).build()).fillInStackTrace();
+         e.printStackTrace();
+         throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR).build());
      }
 
      }
@@ -110,21 +106,15 @@ public class PostsResource {
     @Path("/{postId}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Post getPost(@PathParam("postId") String postId) {
+    public String getPost(@PathParam("postId") String postId) {
         try {
-
-            //try (Jedis jedis = jedisPool.getResource()) {
-            //    Map<String, String> posts = jedis.hgetAll("MostRecentPosts");
-            //    if(posts.containsKey("postId"))
-            //        return posts.get("postId");
-            //}
 
             String PostsCollection = getCollectionString("Posts");
             FeedOptions queryOptions = new FeedOptions();
             queryOptions.setEnableCrossPartitionQuery(true);
             queryOptions.setMaxDegreeOfParallelism(-1);
             Iterator<FeedResponse<Document>> it = client.queryDocuments(PostsCollection,
-                    "SELECT * FROM Posts u WHERE u.postId = '" + postId + "'", queryOptions).toBlocking().getIterator();
+                    "SELECT * FROM Posts u WHERE u.id = '" + postId + "'", queryOptions).toBlocking().getIterator();
 
             String LikesCollection = getCollectionString("Likes");
             queryOptions.setEnableCrossPartitionQuery(true);
@@ -138,9 +128,15 @@ public class PostsResource {
 
             Observable<ResourceResponse<Document>> resp =  client.replaceDocument(post.get_self(), post, null);
 
-            resp.subscribe();
+            Document doc = resp.toBlocking().first().getResource();
 
-            return post;
+            try (Jedis jedis = jedisPool.getResource()) {
+                Long cnt = jedis.lpush("MostRecentPosts", doc.toJson());
+                if (cnt > 10)
+                    jedis.ltrim("MostRecentPosts", 0, 10);
+            }
+
+            return doc.toJson();
             //post.setLikes(it2.next().getResults().size());
 
             //return post.getPostId();
@@ -163,17 +159,22 @@ public class PostsResource {
             queryOptions.setEnableCrossPartitionQuery(true);
             queryOptions.setMaxDegreeOfParallelism(-1);
             Iterator<FeedResponse<Document>> it = client.queryDocuments(PostsCollection,
-                    "SELECT * FROM Posts u WHERE u.postId = '" + postId + "'", queryOptions).toBlocking().getIterator();
+                    "SELECT * FROM Posts u WHERE u.id = '" + postId + "'", queryOptions).toBlocking().getIterator();
+
+            Document doc = it.next().getResults().get(0);
+            RequestOptions options = new RequestOptions();
+            options.setPartitionKey( new PartitionKey(doc.get("id").toString()));
 
             //return it.next().getResults().get(0).getSelfLink();
-            Observable<ResourceResponse<Document>> resp = client.deleteDocument(it.next().getResults().get(0).getSelfLink(), null);
+            Observable<ResourceResponse<Document>> resp = client.deleteDocument(doc.getSelfLink(), options);
 
-            //resp.toBlocking();
-            resp.subscribe();
+            resp.toBlocking().first();
+            //resp.subscribe();
 
 
 
         } catch (Exception e) {
+            e.printStackTrace();
             throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).build());
         }
 
@@ -196,12 +197,18 @@ public class PostsResource {
             FeedResponse<Document> doc = it.next();
             Observable<ResourceResponse<Document>> resp;
 
-            if(doc.getResults().size() != 0)
-                resp = client.deleteDocument(doc.getResults().get(0).getSelfLink(), null);
+
+            if(doc.getResults().size() != 0) {
+                RequestOptions options = new RequestOptions();
+                options.setPartitionKey( new PartitionKey(postId + userId));
+
+                resp = client.deleteDocument(doc.getResults().get(0).getSelfLink(), options);
+            }
             else {
                 Like like = new Like();
                 like.setPostId(postId);
                 like.setUserId(userId);
+                like.setCompositeId(postId + userId);
                 resp = client.createDocument(LikesCollection, like, null, false );
             }
 

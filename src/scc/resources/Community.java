@@ -2,13 +2,13 @@ package scc.resources;
 
 public class Community {
 
-    private String communityName;
+    private String name;
 
-    public String getCommunityName() {
-        return communityName;
+    public String getName() {
+        return name;
     }
 
-    public void setCommunityName(String communityName) {
-        this.communityName = communityName;
+    public void setName(String name) {
+        this.name = name;
     }
 }

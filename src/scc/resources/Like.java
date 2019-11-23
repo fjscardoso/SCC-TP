@@ -7,6 +7,7 @@ public class Like {
 
     private String postId;
     private String userId;
+    private String compositeId;
 
     public String getUserId() {
         return userId;
@@ -22,5 +23,13 @@ public class Like {
 
     public void setPostId(String postId) {
         this.postId = postId;
+    }
+
+    public String getCompositeId() {
+        return compositeId;
+    }
+
+    public void setCompositeId(String compositeId) {
+        this.compositeId = compositeId;
     }
 }

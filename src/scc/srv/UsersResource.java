@@ -3,28 +3,15 @@ package scc.srv;
 import com.microsoft.azure.cosmosdb.*;
 import rx.Observable;
 import scc.resources.User;
-import scc.scc_frontend.TestProperties;
 
 import com.microsoft.azure.cosmosdb.rx.AsyncDocumentClient;
-import com.microsoft.azure.storage.CloudStorageAccount;
-import com.microsoft.azure.storage.StorageException;
-import com.microsoft.azure.storage.blob.CloudBlob;
-import com.microsoft.azure.storage.blob.CloudBlobClient;
-import com.microsoft.azure.storage.blob.CloudBlobContainer;
-import com.microsoft.azure.storage.blob.ListBlobItem;
 
 import javax.ws.rs.*;
-import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.security.InvalidKeyException;
-import java.time.LocalDateTime;
 import java.util.*;
 
-@Path("/users")
+@Path("/user")
 public class UsersResource {
 
     AsyncDocumentClient client;
@@ -45,13 +32,11 @@ public class UsersResource {
     }
 
     @POST
-    @Path("/{name}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public String addUser(@PathParam("name") String name) {
+    public String addUser(User input) {
         try {
-            User user = new User();
-            user.setName(name);
+            User user = input;
             String UsersCollection = getCollectionString("Users");
             Observable<ResourceResponse<Document>> resp = client.createDocument(UsersCollection, user, null, false);
             return resp.toBlocking().first().getResource().getSelfLink();
@@ -98,7 +83,11 @@ public class UsersResource {
         Iterator<FeedResponse<Document>> it = client.queryDocuments(UsersCollection,
                 "SELECT * FROM Users u WHERE u.name = '" + name + "'", queryOptions).toBlocking().getIterator();
 
-        client.deleteDocument(it.next().getResults().get(0).getSelfLink(), null);
+        Document doc = it.next().getResults().get(0);
+        RequestOptions options = new RequestOptions();
+        options.setPartitionKey( new PartitionKey(doc.get("name").toString()));
+
+        client.deleteDocument(doc.getSelfLink(), options);
 
 
     }

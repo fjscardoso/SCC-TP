@@ -2,12 +2,8 @@ package scc.srv;
 
 import com.microsoft.azure.cosmosdb.*;
 import com.microsoft.azure.cosmosdb.rx.AsyncDocumentClient;
-import com.microsoft.azure.storage.blob.CloudBlob;
-import com.microsoft.azure.storage.blob.CloudBlobContainer;
 import rx.Observable;
 import scc.resources.Community;
-import scc.resources.Post;
-import scc.scc_frontend.TestProperties;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -18,7 +14,7 @@ import java.util.List;
 
 import static scc.srv.PostsResource.getCollectionString;
 
-@Path("/r")
+@Path("/community")
 public class CommunityResource {
 
     AsyncDocumentClient client;
@@ -40,10 +36,10 @@ public class CommunityResource {
 
 
     @GET
-    @Path("/{communityName}")
+    @Path("/{name}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public List<String> getPosts(@PathParam("communityName") String communityName) {
+    public List<String> getPosts(@PathParam("name") String name) {
         try {
 
             List<String> list = new LinkedList<>();
@@ -53,7 +49,7 @@ public class CommunityResource {
             queryOptions.setEnableCrossPartitionQuery(true);
             queryOptions.setMaxDegreeOfParallelism(-1);
             Iterator<FeedResponse<Document>> it = client.queryDocuments(PostsCollection,
-                    "SELECT * FROM Posts u WHERE u.community = '" + communityName + "'", queryOptions).toBlocking().getIterator();
+                    "SELECT * FROM Posts u WHERE u.community = '" + name + "'", queryOptions).toBlocking().getIterator();
 
             FeedResponse<Document> feed = it.next();
 
@@ -69,13 +65,11 @@ public class CommunityResource {
     }
 
     @POST
-    @Path("/{communityName}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public String createCommunity(@PathParam("communityName") String communityName) {
+    public String createCommunity(Community community) {
         try {
-            Community comm = new Community();
-            comm.setCommunityName(communityName);
+            Community comm = community;
             String CommunitiesCollection = getCollectionString("Communities");
             Observable<ResourceResponse<Document>> resp = client.createDocument(CommunitiesCollection, comm, null, false);
             return resp.toBlocking().first().getResource().getSelfLink();
@@ -85,11 +79,36 @@ public class CommunityResource {
 
     }
 
+    @DELETE
+    @Path("/{name}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void deleteCommunity(@PathParam("name") String name) {
+        try {
+            String CommunityCollection = getCollectionString("Communities");
+            FeedOptions queryOptions = new FeedOptions();
+            queryOptions.setEnableCrossPartitionQuery(true);
+            queryOptions.setMaxDegreeOfParallelism(-1);
+            Iterator<FeedResponse<Document>> it = client.queryDocuments(CommunityCollection,
+                    "SELECT * FROM Posts u WHERE u.name = '" + name + "'", queryOptions).toBlocking().getIterator();
+
+            Document doc = it.next().getResults().get(0);
+            RequestOptions options = new RequestOptions();
+            options.setPartitionKey( new PartitionKey(doc.get("name").toString()));
+
+            Observable<ResourceResponse<Document>> resp = client.deleteDocument(doc.getSelfLink(), options);
+
+            resp.toBlocking().first();
+        } catch (Exception e) {
+            throw new WebApplicationException(Response.status(Response.Status.CONFLICT).build());
+        }
+
+    }
+
     @GET
-    @Path("/test/{communityName}")
+    @Path("/test/{name}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public int test(@PathParam("communityName") String communityName) {
+    public int test(@PathParam("name") String name) {
         try {
 
             List<String> list = new LinkedList<>();
@@ -99,7 +118,7 @@ public class CommunityResource {
             queryOptions.setEnableCrossPartitionQuery(true);
             queryOptions.setMaxDegreeOfParallelism(-1);
             Iterator<FeedResponse<Document>> it = client.queryDocuments(PostsCollection,
-                    "SELECT * FROM Posts u WHERE u.community = '" + communityName + "'", queryOptions).toBlocking().getIterator();
+                    "SELECT * FROM Posts u WHERE u.community = '" + name + "'", queryOptions).toBlocking().getIterator();
 
             FeedResponse<Document> feed = it.next();
 

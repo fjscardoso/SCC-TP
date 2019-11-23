@@ -2,36 +2,161 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c37997e5-0259-4b71-b537-6ecd195c7f62" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_pool2_2_4_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__redis_clients_jedis_2_9_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/scc/resources/Like.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_joda_2_9_8.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_stephenc_jcip_jcip_annotations_1_0_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_microsoft_azure_adal4j_1_6_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_microsoft_azure_azure_1_27_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_microsoft_azure_azure_annotations_1_7_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_microsoft_azure_azure_client_authentication_1_6_12.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_microsoft_azure_azure_client_runtime_1_6_12.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_microsoft_azure_azure_keyvault_1_0_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_microsoft_azure_azure_keyvault_webkey_1_0_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_microsoft_azure_azure_mgmt_appservice_1_27_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_microsoft_azure_azure_mgmt_batch_1_27_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_microsoft_azure_azure_mgmt_batchai_1_27_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_microsoft_azure_azure_mgmt_cdn_1_27_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_microsoft_azure_azure_mgmt_compute_1_27_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_microsoft_azure_azure_mgmt_containerinstance_1_27_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_microsoft_azure_azure_mgmt_containerregistry_1_27_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_microsoft_azure_azure_mgmt_containerservice_1_27_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_microsoft_azure_azure_mgmt_cosmosdb_1_27_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_microsoft_azure_azure_mgmt_dns_1_27_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_microsoft_azure_azure_mgmt_eventhub_1_27_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_microsoft_azure_azure_mgmt_graph_rbac_1_27_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_microsoft_azure_azure_mgmt_keyvault_1_27_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_microsoft_azure_azure_mgmt_locks_1_27_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_microsoft_azure_azure_mgmt_monitor_1_27_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_microsoft_azure_azure_mgmt_msi_1_27_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_microsoft_azure_azure_mgmt_network_1_27_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_microsoft_azure_azure_mgmt_redis_1_27_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_microsoft_azure_azure_mgmt_resources_1_27_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_microsoft_azure_azure_mgmt_search_1_27_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_microsoft_azure_azure_mgmt_servicebus_1_27_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_microsoft_azure_azure_mgmt_sql_1_27_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_microsoft_azure_azure_mgmt_storage_1_27_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_microsoft_azure_azure_mgmt_trafficmanager_1_27_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_microsoft_azure_azure_storage_blob_11_0_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_microsoft_rest_client_runtime_1_6_12.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_nimbusds_lang_tag_1_4_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_nimbusds_nimbus_jose_jwt_8_2_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_nimbusds_oauth2_oidc_sdk_5_64_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_squareup_okhttp3_logging_interceptor_3_12_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_squareup_okhttp3_okhttp_3_12_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_squareup_okhttp3_okhttp_urlconnection_3_12_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_squareup_okio_okio_1_15_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_squareup_retrofit2_adapter_rxjava_2_4_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_squareup_retrofit2_converter_jackson_2_5_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_squareup_retrofit2_retrofit_2_5_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_mail_javax_mail_1_6_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_activation_activation_1_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_xml_bind_jaxb_api_2_3_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__joda_time_joda_time_2_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_minidev_accessors_smart_1_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_minidev_json_smart_2_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_hk2_external_aopalliance_repackaged_2_6_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_hk2_hk2_api_2_6_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_hk2_hk2_locator_2_6_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_hk2_hk2_utils_2_6_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jersey_inject_jersey_hk2_2_29_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_javassist_javassist_3_22_0_CR2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/set-app-config.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/srv/PagesResource.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/srv/TestProperties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/communitynames.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/create-communities.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/create-posts.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/create-users.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/general-test.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.1.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.10.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.11.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.12.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.13.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.14.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.15.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.16.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.17.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.18.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.19.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.2.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.20.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.21.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.22.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.23.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.24.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.25.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.26.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.27.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.28.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.29.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.3.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.30.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.31.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.32.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.33.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.34.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.35.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.36.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.37.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.38.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.39.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.4.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.40.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.41.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.5.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.6.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.7.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.8.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/cats.9.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/images/get-posts.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/runScriptUsers" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/test-utils.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/userids.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/tests/usernames.data" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/scc/resources/Like.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/resources/Like.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/commons-pool2-2.4.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/jedis-2.9.0.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/artifacts/scc_backend_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/scc_backend_war_exploded.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scc-backend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/scc-backend.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scc/resources/Community.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/resources/Community.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scc/resources/Like.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/resources/Like.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scc/resources/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/resources/Post.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scc/scc_frontend/TestProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/scc_frontend/TestProperties.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scc/scc_frontend/CreateDatabaseAndCollections.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scc/scc_frontend/TestAsyncAzure.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scc/scc_frontend/TestProperties.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scc/scc_frontend/TestUsers.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scc/srv/CommunityResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/srv/CommunityResource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scc/srv/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/srv/MainApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scc/srv/MediaResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/srv/MediaResource.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scc/srv/PostsResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/srv/PostsResource.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scc/srv/UsersResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/srv/UsersResource.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/azure-webapp/42997/scc-backend-0.0.1-SNAPSHOT.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/azure-webapp/42997/scc-backend-0.0.1-SNAPSHOT.war" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scc/resources/Community.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scc/resources/Community.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/scc/resources/Post.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scc/resources/Post.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/scc/scc_frontend/CreateDatabaseAndCollections.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scc/scc_frontend/CreateDatabaseAndCollections.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/scc/scc_frontend/TestAsyncAzure.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scc/scc_frontend/TestAsyncAzure.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/scc/scc_frontend/TestProperties.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scc/scc_frontend/TestProperties.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scc/scc_frontend/CreateDatabaseAndCollections.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scc/scc_frontend/TestAsyncAzure.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scc/scc_frontend/TestProperties.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scc/scc_frontend/TestUsers.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/scc/srv/CommunityResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scc/srv/CommunityResource.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scc/srv/MainApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scc/srv/MainApplication.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/scc/srv/MediaResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scc/srv/MediaResource.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/scc/srv/PostsResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scc/srv/PostsResource.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/scc/srv/UsersResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scc/srv/UsersResource.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT.war" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/resources/Community.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/resources/Community.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/resources/Post.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/resources/Post.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/scc_frontend/CreateDatabaseAndCollections.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/scc_frontend/CreateDatabaseAndCollections.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/scc_frontend/TestAsyncAzure.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/scc_frontend/TestAsyncAzure.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/scc_frontend/TestProperties.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/scc_frontend/TestProperties.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/srv/CommunityResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/srv/CommunityResource.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/srv/MainApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/srv/MainApplication.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/srv/MediaResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/srv/MediaResource.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/srv/PostsResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/srv/PostsResource.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/srv/UsersResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/srv/UsersResource.class" afterDir="false" />
@@ -62,13 +187,20 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="findjar.last.used.dir" value="$PROJECT_DIR$/../scc-frontend/src/main/java/scc/resources" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../scc-serverless-aula7" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/scc/tests" />
+      <recent name="$PROJECT_DIR$/src/tests" />
+      <recent name="$PROJECT_DIR$/src/scc" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -82,13 +214,26 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.test">
+  <component name="RunManager" selected="Application.AzureManagement">
+    <configuration name="AzureManagement" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="scc.AzureManagement" />
+      <module name="scc-backend" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="scc.srv.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="CreateDatabaseAndCollections" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="scc.scc_frontend.CreateDatabaseAndCollections" />
       <module name="scc-backend" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="scc.scc_frontend.*" />
+          <option name="PATTERN" value="scc.srv.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -101,7 +246,7 @@
       <module name="scc-backend" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="scc.scc_frontend.*" />
+          <option name="PATTERN" value="scc.srv.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -124,6 +269,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.AzureManagement" />
         <item itemvalue="Application.test" />
         <item itemvalue="Application.TestAsyncAzure" />
         <item itemvalue="Application.CreateDatabaseAndCollections" />
@@ -167,7 +313,23 @@
       <workItem from="1571700106508" duration="2670000" />
       <workItem from="1571752420932" duration="1254000" />
       <workItem from="1571779317221" duration="5328000" />
-      <workItem from="1571788695962" duration="351000" />
+      <workItem from="1571788695962" duration="405000" />
+      <workItem from="1571873105213" duration="134000" />
+      <workItem from="1572477069464" duration="241000" />
+      <workItem from="1572479142584" duration="9000" />
+      <workItem from="1573213223121" duration="149000" />
+      <workItem from="1573213548282" duration="3192000" />
+      <workItem from="1573501172442" duration="1442000" />
+      <workItem from="1573513235925" duration="682000" />
+      <workItem from="1573584076403" duration="5685000" />
+      <workItem from="1573688919703" duration="18000" />
+      <workItem from="1573703075791" duration="7700000" />
+      <workItem from="1573843244661" duration="1804000" />
+      <workItem from="1573846114732" duration="291000" />
+      <workItem from="1573846415236" duration="2763000" />
+      <workItem from="1573928334442" duration="3081000" />
+      <workItem from="1573945577109" duration="5845000" />
+      <workItem from="1573959141086" duration="380000" />
     </task>
     <servers />
   </component>
