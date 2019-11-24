@@ -71,7 +71,6 @@ function genNewUser(context, events, done) {
 	return done()
 }
 
-
 function genNewUserReply(requestParams, response, context, ee, next) {
 	if( response.body.length > 0) {
 		userIds.push(response.body)

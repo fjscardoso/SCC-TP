@@ -1,4 +1,4 @@
-package scc.scc_frontend;
+package scc.setup;
 
 import java.io.FileInputStream;
 import java.io.IOException;

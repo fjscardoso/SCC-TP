@@ -38,9 +38,12 @@ public class CommunityResource {
     @GET
     @Path("/{name}")
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     public List<String> getPosts(@PathParam("name") String name) {
         try {
+
+            if(client == null)
+                connect();
 
             List<String> list = new LinkedList<>();
 
@@ -69,11 +72,15 @@ public class CommunityResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String createCommunity(Community community) {
         try {
-            Community comm = community;
+
+            if(client == null)
+                connect();
+
             String CommunitiesCollection = getCollectionString("Communities");
-            Observable<ResourceResponse<Document>> resp = client.createDocument(CommunitiesCollection, comm, null, false);
+            Observable<ResourceResponse<Document>> resp = client.createDocument(CommunitiesCollection, community, null, false);
             return resp.toBlocking().first().getResource().getSelfLink();
         } catch (Exception e) {
+            e.printStackTrace();
             throw new WebApplicationException(Response.status(Response.Status.CONFLICT).build());
         }
 
@@ -84,6 +91,10 @@ public class CommunityResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public void deleteCommunity(@PathParam("name") String name) {
         try {
+
+            if(client == null)
+                connect();
+
             String CommunityCollection = getCollectionString("Communities");
             FeedOptions queryOptions = new FeedOptions();
             queryOptions.setEnableCrossPartitionQuery(true);
@@ -104,30 +115,5 @@ public class CommunityResource {
 
     }
 
-    @GET
-    @Path("/test/{name}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.TEXT_PLAIN)
-    public int test(@PathParam("name") String name) {
-        try {
-
-            List<String> list = new LinkedList<>();
-
-            String PostsCollection = getCollectionString("Posts");
-            FeedOptions queryOptions = new FeedOptions();
-            queryOptions.setEnableCrossPartitionQuery(true);
-            queryOptions.setMaxDegreeOfParallelism(-1);
-            Iterator<FeedResponse<Document>> it = client.queryDocuments(PostsCollection,
-                    "SELECT * FROM Posts u WHERE u.community = '" + name + "'", queryOptions).toBlocking().getIterator();
-
-            FeedResponse<Document> feed = it.next();
-
-            return feed.getResults().size();
-
-
-        } catch (Exception e) {
-            throw new WebApplicationException(Response.status(Response.Status.CONFLICT).build());
-        }
-    }
 }
 

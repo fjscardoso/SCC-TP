@@ -1,5 +1,8 @@
 package scc.resources;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Community {
 
     private String name;

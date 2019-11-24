@@ -11,7 +11,6 @@ public class Post
     //link to one multimedia object (string, optional),
     //reference to the parent post (string, optional)
 
-    private String title;
     private String msg;
     private String community;
     private String creator;
@@ -25,14 +24,6 @@ public class Post
     private String _etag;
     private String _attachments;
     private String _ts;
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
     public String getCommunity() {
         return community;

@@ -1,16 +1,13 @@
 package scc.srv;
 
 import com.microsoft.azure.cosmosdb.*;
-import com.microsoft.azure.storage.blob.CloudBlobContainer;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.JedisShardInfo;
-import rx.Observable;
-import scc.resources.Post;
-import scc.resources.User;
 
 import com.microsoft.azure.cosmosdb.rx.AsyncDocumentClient;
+import scc.resources.Post;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -26,7 +23,19 @@ public class PagesResource {
     JedisPool jedisPool;
 
     public PagesResource() {
+
+        connect();
         createCache();
+    }
+
+    public void connect() {
+        ConnectionPolicy connectionPolicy = ConnectionPolicy.GetDefault();
+        connectionPolicy.setConnectionMode(ConnectionMode.Direct);
+        client = new AsyncDocumentClient.Builder()
+                .withServiceEndpoint(TestProperties.COSMOS_DB_ENDPOINT)
+                .withMasterKeyOrResourceToken(TestProperties.COSMOS_DB_MASTER_KEY)
+                .withConnectionPolicy(connectionPolicy)
+                .withConsistencyLevel(ConsistencyLevel.Eventual).build();
     }
 
     public void createCache(){
@@ -49,28 +58,51 @@ public class PagesResource {
 
     @GET
     @Path("/initial")
-    @Produces(MediaType.TEXT_PLAIN)
-    public List<String> getInitial() {
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Post> getInitial() {
         try {
 
-            List<String> posts;
-
-            try (Jedis jedis = jedisPool.getResource()) {
-                posts = jedis.lrange("MostRecentPosts", 0, 9);
+/**            try (Jedis jedis = jedisPool.getResource()) {
+                posts = jedis.lrange("serverlesscosmos"", 0, 9);
             }
+*/
+
+            List<Post> posts = new LinkedList<>();
+
+            String PostsCollection = getCollectionString("Posts");
+            FeedOptions queryOptions = new FeedOptions();
+            queryOptions.setEnableCrossPartitionQuery(true);
+            queryOptions.setMaxDegreeOfParallelism(-1);
+            Iterator<FeedResponse<Document>> it = client.queryDocuments(PostsCollection,
+                    "SELECT * FROM Posts OFFSET 0 LIMIT 10", queryOptions).toBlocking().getIterator();
+
+            FeedResponse<Document> feed = it.next();
+
+            for(int i = 0; i < feed.getResults().size(); i++) {
+                Post doc = feed.getResults().get(i).toObject(Post.class);
+                posts.add(doc);
+            }
+
 
             return posts;
 
         } catch (Exception e) {
+            e.printStackTrace();
             throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).build());
         }
     }
 
     @GET
     @Path("/thread/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
     public List<String> getThread(@PathParam("id") String id) {
         try {
+
+            try (Jedis jedis = jedisPool.getResource()) {
+                if(jedis.llen(id) != 0) {
+                    return jedis.lrange(id, 0, 9);
+                }
+            }
 
             List<String> list = new LinkedList<>();
 
@@ -79,24 +111,23 @@ public class PagesResource {
             queryOptions.setEnableCrossPartitionQuery(true);
             queryOptions.setMaxDegreeOfParallelism(-1);
             Iterator<FeedResponse<Document>> it = client.queryDocuments(PostsCollection,
-                    "SELECT * FROM Users u WHERE u.id = '" + id + "'", queryOptions).toBlocking().getIterator();
+                    "SELECT * FROM Posts u WHERE u.id = '" + id + "' OR u.parentId = '" + id + "'", queryOptions).toBlocking().getIterator();
 
-            list.add(it.next().getResults().get(0).toJson());
+            FeedResponse<Document> feed = it.next();
 
-            Iterator<FeedResponse<Document>> it2 = client.queryDocuments(PostsCollection,
-                    "SELECT * FROM Users u WHERE u.parentId = '" + id + "'", queryOptions).toBlocking().getIterator();
+            try (Jedis jedis = jedisPool.getResource()) {
 
-            FeedResponse<Document> feed = it2.next();
-
-            for(int i = 0; i < feed.getResults().size(); i++) {
-                String doc = feed.getResults().get(i).toJson();
-                list.add(doc);
+                for (int i = 0; i < feed.getResults().size(); i++) {
+                    String doc = feed.getResults().get(i).toJson();
+                    list.add(doc);
+                    jedis.lpush(id, doc);
+                }
             }
-
 
             return list;
 
         } catch (Exception e) {
+            e.printStackTrace();
             throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).build());
         }
     }

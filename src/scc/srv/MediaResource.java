@@ -3,6 +3,7 @@ package scc.srv;
 import com.microsoft.azure.cosmosdb.*;
 import com.microsoft.azure.cosmosdb.rx.AsyncDocumentClient;
 import com.microsoft.azure.storage.CloudStorageAccount;
+import com.microsoft.azure.storage.StorageException;
 import com.microsoft.azure.storage.blob.CloudBlob;
 import com.microsoft.azure.storage.blob.CloudBlobClient;
 import com.microsoft.azure.storage.blob.CloudBlobContainer;
@@ -10,13 +11,17 @@ import com.microsoft.azure.storage.blob.ListBlobItem;
 import rx.Observable;
 import scc.resources.Post;
 
+import javax.annotation.PostConstruct;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 @Path("/media")
 public class MediaResource {
@@ -54,9 +59,7 @@ public class MediaResource {
 
     @Path("/{name}")
     @POST
-    @Consumes(MediaType.APPLICATION_OCTET_STREAM)
-    @Produces(MediaType.APPLICATION_JSON)
-    public String createContainer(@PathParam("name") String name) {
+    public void createContainer(@PathParam("name") String name) {
 
         if(container == null)
             connect();
@@ -71,14 +74,41 @@ public class MediaResource {
         catch(Exception e){
         };
 
-        return null;
+
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_OCTET_STREAM)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String uploadImage(byte[] contents) {
+
+        if(container == null)
+            connect();
+
+        try {
+
+            String imageId = contents.toString() + new Random().nextInt();
+
+            CloudBlob blob = container.getBlockBlobReference(imageId);
+
+            blob.uploadFromByteArray(contents, 0, contents.length);
+
+            return imageId;
+        }
+
+        catch(Exception e){
+            e.printStackTrace();
+            throw new WebApplicationException(Response.status(Response.Status.CONFLICT).build());
+
+        }
+
 
     }
 
     @Path("/upload/{postId}")
     @POST
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
     public String upload(@PathParam("postId") String postId, byte[] contents) {
             if(container == null)
                 connect();
@@ -119,7 +149,6 @@ public class MediaResource {
 
     @Path("/{uid}")
     @GET
-    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public byte[] download(@PathParam("uid") String uid) {
 

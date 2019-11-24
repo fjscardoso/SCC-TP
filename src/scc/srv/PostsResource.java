@@ -15,8 +15,11 @@ import scc.resources.Post;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -67,37 +70,52 @@ public class PostsResource {
      @Consumes(MediaType.APPLICATION_JSON)
      @Produces(MediaType.TEXT_PLAIN)
      public String addPost(Post post) throws Throwable {
+
      try {
 
-/**     String UsersCollection = getCollectionString("Users");
-     FeedOptions queryOptions = new FeedOptions();
-     queryOptions.setEnableCrossPartitionQuery(true);
-     queryOptions.setMaxDegreeOfParallelism(-1);
-     Iterator<FeedResponse<Document>> it = client.queryDocuments(UsersCollection,
-     "SELECT * FROM Users u WHERE u.name = '" + post.getUserId() + "'", queryOptions).toBlocking().getIterator();
+         if(client == null)
+             connect();
 
-     if(it.next().getResults().get(0).toJson().equals(null))
-     throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).build());
-*/
-     post.setDate(LocalDateTime.now().toString());
+         String CommunitiesCollection = getCollectionString("Communities");
+         FeedOptions queryOptions = new FeedOptions();
+         queryOptions.setEnableCrossPartitionQuery(true);
+         queryOptions.setMaxDegreeOfParallelism(-1);
+         Iterator<FeedResponse<Document>> existsCommunity = client.queryDocuments(CommunitiesCollection,
+                 "SELECT * FROM Communities u WHERE u.name = '" + post.getCommunity() + "'", queryOptions).toBlocking().getIterator();
 
-     String PostsCollection = getCollectionString("Posts");
+         if(existsCommunity.next().getResults().size() == 0)
+             throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).build());
 
-     Observable<ResourceResponse<Document>> resp = client.createDocument(PostsCollection, post, null, false);
+         String UsersCollection = getCollectionString("Users");
+         Iterator<FeedResponse<Document>> existsUser = client.queryDocuments(UsersCollection,
+                 "SELECT * FROM Users u WHERE u.name = '" + post.getCreator() + "'", queryOptions).toBlocking().getIterator();
 
-     Document doc = resp.toBlocking().first().getResource();
+         if(existsUser.next().getResults().size() == 0)
+             throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).build());
 
-     try (Jedis jedis = jedisPool.getResource()) {
+         //if(jedisPool == null)
+         //    createCache();
+
+         post.setDate(LocalDateTime.now().toString());
+
+        String PostsCollection = getCollectionString("Posts");
+
+        Observable<ResourceResponse<Document>> resp = client.createDocument(PostsCollection, post, null, false);
+
+        Document doc = resp.toBlocking().first().getResource();
+
+/**         try (Jedis jedis = jedisPool.getResource()) {
              Long cnt = jedis.lpush("MostRecentPosts", doc.toJson());
              if (cnt > 10)
-             jedis.ltrim("MostRecentPosts", 0, 10);
-         }
+                 jedis.ltrim("MostRecentPosts", 0, 9);
 
+         }
+*/
      return doc.get("id").toString();
 
      } catch (Exception e) {
          e.printStackTrace();
-         throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR).build());
+         throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).build());
      }
 
      }
@@ -106,8 +124,11 @@ public class PostsResource {
     @Path("/{postId}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String getPost(@PathParam("postId") String postId) {
+    public Post getPost(@PathParam("postId") String postId) {
         try {
+
+            if(client == null)
+                connect();
 
             String PostsCollection = getCollectionString("Posts");
             FeedOptions queryOptions = new FeedOptions();
@@ -116,30 +137,19 @@ public class PostsResource {
             Iterator<FeedResponse<Document>> it = client.queryDocuments(PostsCollection,
                     "SELECT * FROM Posts u WHERE u.id = '" + postId + "'", queryOptions).toBlocking().getIterator();
 
-            String LikesCollection = getCollectionString("Likes");
-            queryOptions.setEnableCrossPartitionQuery(true);
-            queryOptions.setMaxDegreeOfParallelism(-1);
-            Iterator<FeedResponse<Document>> it2 = client.queryDocuments(LikesCollection,
-                    "SELECT * FROM Posts u WHERE u.postId = '" + postId + "'", queryOptions).toBlocking().getIterator();
 
             Post post = it.next().getResults().get(0).toObject(Post.class);
 
-            post.setLikes(it2.next().getResults().size());
+            return post;
 
-            Observable<ResourceResponse<Document>> resp =  client.replaceDocument(post.get_self(), post, null);
-
-            Document doc = resp.toBlocking().first().getResource();
-
-            try (Jedis jedis = jedisPool.getResource()) {
+/**            try (Jedis jedis = jedisPool.getResource()) {
                 Long cnt = jedis.lpush("MostRecentPosts", doc.toJson());
                 if (cnt > 10)
                     jedis.ltrim("MostRecentPosts", 0, 10);
+
             }
+*/
 
-            return doc.toJson();
-            //post.setLikes(it2.next().getResults().size());
-
-            //return post.getPostId();
         } catch (Exception e) {
             e.printStackTrace();
             throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).build());
@@ -154,6 +164,9 @@ public class PostsResource {
     public void deletePost(@PathParam("postId") String postId) {
         try {
 
+            if(client == null)
+                connect();
+
             String PostsCollection = getCollectionString("Posts");
             FeedOptions queryOptions = new FeedOptions();
             queryOptions.setEnableCrossPartitionQuery(true);
@@ -165,11 +178,10 @@ public class PostsResource {
             RequestOptions options = new RequestOptions();
             options.setPartitionKey( new PartitionKey(doc.get("id").toString()));
 
-            //return it.next().getResults().get(0).getSelfLink();
             Observable<ResourceResponse<Document>> resp = client.deleteDocument(doc.getSelfLink(), options);
 
             resp.toBlocking().first();
-            //resp.subscribe();
+
 
 
 
@@ -186,6 +198,9 @@ public class PostsResource {
     @Produces(MediaType.TEXT_PLAIN)
     public void likePost(@PathParam("postId") String postId, @PathParam("userId") String userId) {
         try {
+
+            if(client == null)
+                connect();
 
             String LikesCollection = getCollectionString("Likes");
             FeedOptions queryOptions = new FeedOptions();
@@ -214,71 +229,45 @@ public class PostsResource {
 
             resp.subscribe();
 
+            replacePost(postId);
+
         } catch (Exception e) {
             throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).build());
         }
 
     }
 
-    @GET
-    @Path("/test/{postId}/{userId}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.TEXT_PLAIN)
-    public int test(@PathParam("postId") String postId, @PathParam("userId") String userId) {
+    private void replacePost(String postId){
+
         try {
 
-            String LikesCollection = getCollectionString("Likes");
+            String PostsCollection = getCollectionString("Posts");
             FeedOptions queryOptions = new FeedOptions();
             queryOptions.setEnableCrossPartitionQuery(true);
             queryOptions.setMaxDegreeOfParallelism(-1);
-            Iterator<FeedResponse<Document>> it = client.queryDocuments(LikesCollection,
-                    "SELECT * FROM Posts u WHERE u.postId = '" + postId + "' AND u.userId = '" + userId + "'", queryOptions).toBlocking().getIterator();
-
-            return it.next().getResults().size();
-        } catch (Exception e) {
-            throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR).build());
-        }
-    }
-
-    @GET
-    @Path("/test2/{postId}/{userId}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.TEXT_PLAIN)
-    public boolean test2(@PathParam("postId") String postId, @PathParam("userId") String userId) {
-        try {
+            Iterator<FeedResponse<Document>> it = client.queryDocuments(PostsCollection,
+                    "SELECT * FROM Posts u WHERE u.id = '" + postId + "'", queryOptions).toBlocking().getIterator();
 
             String LikesCollection = getCollectionString("Likes");
-            FeedOptions queryOptions = new FeedOptions();
             queryOptions.setEnableCrossPartitionQuery(true);
             queryOptions.setMaxDegreeOfParallelism(-1);
-            Iterator<FeedResponse<Document>> it = client.queryDocuments(LikesCollection,
-                    "SELECT * FROM Posts u WHERE u.postId = '" + postId + "' AND u.userId = '" + userId + "'", queryOptions).toBlocking().getIterator();
+            Iterator<FeedResponse<Document>> it2 = client.queryDocuments(LikesCollection,
+                    "SELECT * FROM Likes u WHERE u.postId = '" + postId + "'", queryOptions).toBlocking().getIterator();
 
-            return it.hasNext();
-        } catch (Exception e) {
+            Post post = it.next().getResults().get(0).toObject(Post.class);
+
+            post.setLikes(it2.next().getResults().size());
+
+            Observable<ResourceResponse<Document>> resp = client.replaceDocument(post.get_self(), post, null);
+
+            resp.toBlocking().first().getResource();
+
+        }catch (Exception e){
+            e.printStackTrace();
             throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR).build());
+
         }
-    }
 
-
-    @GET
-    @Path("/test3/{postId}/{userId}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String test3(@PathParam("postId") String postId, @PathParam("userId") String userId) {
-        try {
-
-            String LikesCollection = getCollectionString("Likes");
-            FeedOptions queryOptions = new FeedOptions();
-            queryOptions.setEnableCrossPartitionQuery(true);
-            queryOptions.setMaxDegreeOfParallelism(-1);
-            Iterator<FeedResponse<Document>> it = client.queryDocuments(LikesCollection,
-                "COUNT * FROM Posts u WHERE u.postId = '" + postId + "'", queryOptions).toBlocking().getIterator();
-
-            return it.next().getResults().get(0).toJson();
-        } catch (Exception e) {
-            throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR).build());
-        }
     }
 
     /**

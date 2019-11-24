@@ -1,23 +1,7 @@
-package scc.scc_frontend;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+package scc.setup;
 
 import com.microsoft.azure.CloudException;
-import com.microsoft.azure.cosmosdb.ConnectionPolicy;
-import com.microsoft.azure.cosmosdb.ConsistencyLevel;
-import com.microsoft.azure.cosmosdb.Database;
-import com.microsoft.azure.cosmosdb.DocumentCollection;
-import com.microsoft.azure.cosmosdb.PartitionKeyDefinition;
-import com.microsoft.azure.cosmosdb.UniqueKey;
-import com.microsoft.azure.cosmosdb.UniqueKeyPolicy;
+import com.microsoft.azure.cosmosdb.*;
 import com.microsoft.azure.cosmosdb.rx.AsyncDocumentClient;
 import com.microsoft.azure.management.Azure;
 import com.microsoft.azure.management.cosmosdb.CosmosDBAccount;
@@ -29,13 +13,18 @@ import com.microsoft.azure.management.redis.RedisKeyType;
 import com.microsoft.azure.management.resources.ResourceGroup;
 import com.microsoft.azure.management.resources.fluentcore.arm.Region;
 import com.microsoft.azure.management.resources.fluentcore.model.Creatable;
-import com.microsoft.azure.management.storage.AccessTier;
-import com.microsoft.azure.management.storage.BlobContainer;
-import com.microsoft.azure.management.storage.PublicAccess;
-import com.microsoft.azure.management.storage.StorageAccount;
-import com.microsoft.azure.management.storage.StorageAccountKey;
-import com.microsoft.azure.management.storage.StorageAccountSkuType;
+import com.microsoft.azure.management.storage.*;
 import com.microsoft.rest.LogLevel;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 public class AzureManagement
 {
@@ -371,8 +360,8 @@ public class AzureManagement
 						AsyncDocumentClient cosmosClient = getDocumentClient(accountCosmosDB);
 						createDatabase(cosmosClient, AZURE_COSMOSDB_DATABASE);
 						createCollection(cosmosClient, AZURE_COSMOSDB_DATABASE, "Users", "/name", "/name");
-						createCollection(cosmosClient, AZURE_COSMOSDB_DATABASE, "Posts", "/community", null);
-						createCollection(cosmosClient, AZURE_COSMOSDB_DATABASE, "Communities", "/name", null);
+						createCollection(cosmosClient, AZURE_COSMOSDB_DATABASE, "Posts", "/postId", null);
+						createCollection(cosmosClient, AZURE_COSMOSDB_DATABASE, "Communities", "/name", "/name");
 						createCollection(cosmosClient, AZURE_COSMOSDB_DATABASE, "Likes", "/compositeId", null);
 
 					} catch (Exception e) {

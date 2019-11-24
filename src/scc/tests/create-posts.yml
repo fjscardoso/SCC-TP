@@ -31,7 +31,7 @@ scenarios:
               community: "{{ community }}"
               creator: "{{ creator }}"
               msg: "{{ msg }}"
-              image: "{{ imageId }}"
+              imageId: "{{ imageId }}"
               parentId: "{{ parentId }}"
             afterResponse: "genNewPostReply"
         count: 200

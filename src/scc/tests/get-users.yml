@@ -1,0 +1,17 @@
+#Create initial set of users
+config:
+  target: 'https://42997.azurewebsites.net'
+  http:
+    pool: 10
+  processor: "./test-utils.js"
+  phases:
+    - duration: 1
+      arrivalCount: 1
+
+scenarios:
+  - name: 'Get thread'
+    flow:
+      - loop:
+          - get:
+              url: "/pages/thread/304ba8e4-168d-4d67-b61e-2d1689461149"
+        count: 5
