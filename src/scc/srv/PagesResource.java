@@ -19,13 +19,10 @@ import java.util.*;
 public class PagesResource {
 
     AsyncDocumentClient client;
-    Jedis jedis;
-    JedisPool jedisPool;
 
     public PagesResource() {
 
         connect();
-        createCache();
     }
 
     public void connect() {
@@ -38,36 +35,18 @@ public class PagesResource {
                 .withConsistencyLevel(ConsistencyLevel.Eventual).build();
     }
 
-    public void createCache(){
-        JedisShardInfo shardInfo = new JedisShardInfo(TestProperties.REDIS_HOSTNAME, 6380, true);
-        shardInfo.setPassword(TestProperties.REDIS_KEY);
-        jedis = new Jedis(shardInfo);
-
-        final JedisPoolConfig poolConfig = new JedisPoolConfig();
-        poolConfig.setMaxTotal(128);
-        poolConfig.setMaxIdle(128);
-        poolConfig.setMinIdle(16);
-        poolConfig.setTestOnBorrow(true);
-        poolConfig.setTestOnReturn(true);
-        poolConfig.setTestWhileIdle(true);
-        poolConfig.setMinEvictableIdleTimeMillis(Duration.ofSeconds(60).toMillis());
-        poolConfig.setTimeBetweenEvictionRunsMillis(Duration.ofSeconds(30).toMillis());
-        poolConfig.setNumTestsPerEvictionRun(3); poolConfig.setBlockWhenExhausted(true);
-        jedisPool = new JedisPool(poolConfig, TestProperties.REDIS_HOSTNAME, 6380, 1000, TestProperties.REDIS_KEY, true);
-    }
-
     @GET
     @Path("/initial")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Post> getInitial() {
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getInitial() {
         try {
 
-/**            try (Jedis jedis = jedisPool.getResource()) {
-                posts = jedis.lrange("serverlesscosmos"", 0, 9);
+           try (Jedis jedis = RedisCache.getCache().getJedisPool().getResource()) {
+                String posts = jedis.get("serverlesscosmos");
+                return posts;
             }
-*/
 
-            List<Post> posts = new LinkedList<>();
+/**            List<Post> posts = new LinkedList<>();
 
             String PostsCollection = getCollectionString("Posts");
             FeedOptions queryOptions = new FeedOptions();
@@ -85,6 +64,7 @@ public class PagesResource {
 
 
             return posts;
+ */
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -98,13 +78,12 @@ public class PagesResource {
     public List<String> getThread(@PathParam("id") String id) {
         try {
 
-            try (Jedis jedis = jedisPool.getResource()) {
-                if(jedis.llen(id) != 0) {
-                    return jedis.lrange(id, 0, 9);
-                }
+            try (Jedis jedis = RedisCache.getCache().getJedisPool().getResource()) {
+                //return jedis.lrange(id, 0, 9);
+                return new LinkedList<>(jedis.hgetAll(id).values());
             }
 
-            List<String> list = new LinkedList<>();
+/**            List<String> list = new LinkedList<>();
 
             String PostsCollection = getCollectionString("Posts");
             FeedOptions queryOptions = new FeedOptions();
@@ -125,6 +104,7 @@ public class PagesResource {
             }
 
             return list;
+ */
 
         } catch (Exception e) {
             e.printStackTrace();

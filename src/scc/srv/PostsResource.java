@@ -18,23 +18,17 @@ import javax.ws.rs.core.Response;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 @Path("/post")
 public class PostsResource {
 
     AsyncDocumentClient client;
     CloudBlobContainer container;
-    Jedis jedis;
-    JedisPool jedisPool;
 
     public PostsResource() {
         container = new MediaResource().connect();
         connect();
-        createCache();
     }
 
 
@@ -46,24 +40,6 @@ public class PostsResource {
                 .withMasterKeyOrResourceToken(TestProperties.COSMOS_DB_MASTER_KEY)
                 .withConnectionPolicy(connectionPolicy)
                 .withConsistencyLevel(ConsistencyLevel.Eventual).build();
-    }
-
-    public void createCache(){
-        JedisShardInfo shardInfo = new JedisShardInfo(TestProperties.REDIS_HOSTNAME, 6380, true);
-        shardInfo.setPassword(TestProperties.REDIS_KEY);
-        jedis = new Jedis(shardInfo);
-
-        final JedisPoolConfig poolConfig = new JedisPoolConfig();
-        poolConfig.setMaxTotal(128);
-        poolConfig.setMaxIdle(128);
-        poolConfig.setMinIdle(16);
-        poolConfig.setTestOnBorrow(true);
-        poolConfig.setTestOnReturn(true);
-        poolConfig.setTestWhileIdle(true);
-        poolConfig.setMinEvictableIdleTimeMillis(Duration.ofSeconds(60).toMillis());
-        poolConfig.setTimeBetweenEvictionRunsMillis(Duration.ofSeconds(30).toMillis());
-        poolConfig.setNumTestsPerEvictionRun(3); poolConfig.setBlockWhenExhausted(true);
-        jedisPool = new JedisPool(poolConfig, TestProperties.REDIS_HOSTNAME, 6380, 1000, TestProperties.REDIS_KEY, true);
     }
 
      @POST
@@ -93,9 +69,6 @@ public class PostsResource {
          if(existsUser.next().getResults().size() == 0)
              throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).build());
 
-         //if(jedisPool == null)
-         //    createCache();
-
          post.setDate(LocalDateTime.now().toString());
 
         String PostsCollection = getCollectionString("Posts");
@@ -104,13 +77,26 @@ public class PostsResource {
 
         Document doc = resp.toBlocking().first().getResource();
 
-/**         try (Jedis jedis = jedisPool.getResource()) {
-             Long cnt = jedis.lpush("MostRecentPosts", doc.toJson());
+/**         try (Jedis jedis = RedisCache.getCache().getJedisPool().getResource()) {
+             Long cnt = jedis.lpush(doc.get("id").toString(), doc.toJson());
              if (cnt > 10)
-                 jedis.ltrim("MostRecentPosts", 0, 9);
+                 jedis.ltrim(doc.get("id").toString(), 0, 9);
+
+             if(!post.getParentId().isEmpty())
+                 cnt = jedis.lpush(post.getParentId(), doc.toJson());
+             if (cnt > 10)
+                 jedis.ltrim(post.getParentId(), 0, 9);
 
          }
 */
+         try (Jedis jedis = RedisCache.getCache().getJedisPool().getResource()) {
+             jedis.hset(doc.get("id").toString(), doc.get("id").toString(), doc.toJson());
+
+             if(!post.getParentId().isEmpty())
+                 jedis.hset(post.getParentId(), doc.get("id").toString(), doc.toJson());
+
+         }
+
      return doc.get("id").toString();
 
      } catch (Exception e) {
@@ -181,8 +167,16 @@ public class PostsResource {
             Observable<ResourceResponse<Document>> resp = client.deleteDocument(doc.getSelfLink(), options);
 
             resp.toBlocking().first();
+            //TODO
+            try (Jedis jedis = RedisCache.getCache().getJedisPool().getResource()) {
+                List<String> list = new LinkedList<>();
+                list.addAll(jedis.hgetAll(postId).keySet());
+                for(int i = 0;i < list.size(); i++)
+                    jedis.hdel(postId, list.get(i));
 
+                //jedis.hdel(doc.get("parentId").toString(), postId);
 
+            }
 
 
         } catch (Exception e) {
@@ -202,12 +196,29 @@ public class PostsResource {
             if(client == null)
                 connect();
 
-            String LikesCollection = getCollectionString("Likes");
+            String PostsCollection = getCollectionString("Posts");
             FeedOptions queryOptions = new FeedOptions();
             queryOptions.setEnableCrossPartitionQuery(true);
             queryOptions.setMaxDegreeOfParallelism(-1);
+            Iterator<FeedResponse<Document>> existsPost = client.queryDocuments(PostsCollection,
+                    "SELECT * FROM Posts u WHERE u.id = '" + postId + "'", queryOptions).toBlocking().getIterator();
+
+            if(existsPost.next().getResults().size() == 0)
+                throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).build());
+
+            String UsersCollection = getCollectionString("Users");
+            Iterator<FeedResponse<Document>> existsUser = client.queryDocuments(UsersCollection,
+                    "SELECT * FROM Users u WHERE u.name = '" + userId + "'", queryOptions).toBlocking().getIterator();
+
+            if(existsUser.next().getResults().size() == 0)
+                throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).build());
+
+            String LikesCollection = getCollectionString("Likes");
+           //FeedOptions queryOptions = new FeedOptions();
+           //queryOptions.setEnableCrossPartitionQuery(true);
+            // queryOptions.setMaxDegreeOfParallelism(-1);
             Iterator<FeedResponse<Document>> it = client.queryDocuments(LikesCollection,
-                    "SELECT * FROM Posts u WHERE u.postId = '" + postId + "' AND u.userId = '" + userId + "'", queryOptions).toBlocking().getIterator();
+                    "SELECT * FROM Likes u WHERE u.postId = '" + postId + "' AND u.userId = '" + userId + "'", queryOptions).toBlocking().getIterator();
 
             FeedResponse<Document> doc = it.next();
             Observable<ResourceResponse<Document>> resp;
@@ -232,14 +243,13 @@ public class PostsResource {
             replacePost(postId);
 
         } catch (Exception e) {
+            e.printStackTrace();
             throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).build());
         }
 
     }
 
     private void replacePost(String postId){
-
-        try {
 
             String PostsCollection = getCollectionString("Posts");
             FeedOptions queryOptions = new FeedOptions();
@@ -249,8 +259,6 @@ public class PostsResource {
                     "SELECT * FROM Posts u WHERE u.id = '" + postId + "'", queryOptions).toBlocking().getIterator();
 
             String LikesCollection = getCollectionString("Likes");
-            queryOptions.setEnableCrossPartitionQuery(true);
-            queryOptions.setMaxDegreeOfParallelism(-1);
             Iterator<FeedResponse<Document>> it2 = client.queryDocuments(LikesCollection,
                     "SELECT * FROM Likes u WHERE u.postId = '" + postId + "'", queryOptions).toBlocking().getIterator();
 
@@ -260,13 +268,18 @@ public class PostsResource {
 
             Observable<ResourceResponse<Document>> resp = client.replaceDocument(post.get_self(), post, null);
 
-            resp.toBlocking().first().getResource();
+            Document doc = resp.toBlocking().first().getResource();
 
-        }catch (Exception e){
-            e.printStackTrace();
-            throw new WebApplicationException(Response.status(Response.Status.INTERNAL_SERVER_ERROR).build());
+        try (Jedis jedis = RedisCache.getCache().getJedisPool().getResource()) {
+            jedis.hdel(postId, postId);
+            jedis.hset(postId, postId, doc.toJson());
+            if(!post.getParentId().isEmpty()) {
+                jedis.hdel(post.getParentId(), post.getId());
+                jedis.hset(post.getParentId(), post.getId(), doc.toJson());
+            }
 
         }
+
 
     }
 

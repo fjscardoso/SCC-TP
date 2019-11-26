@@ -2,127 +2,55 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c37997e5-0259-4b71-b537-6ecd195c7f62" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_3_8_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/azure.auth" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/azurekeys-westeu.props" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/delete-resources.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/set-app-config-westeu.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/scc/setup/AzureManagement.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/scc/setup/AzureProperties.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/scc/srv/PagesResource.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/scc/srv/TestProperties.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/AzureManagement.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/AzureProperties.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/srv/PagesResource.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/srv/TestProperties.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/accessors-smart-1.2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/activation-1.1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/adal4j-1.6.2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/adapter-rxjava-2.4.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/aopalliance-repackaged-2.6.1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/azure-1.27.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/azure-annotations-1.7.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/azure-client-authentication-1.6.12.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/azure-client-runtime-1.6.12.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/azure-keyvault-1.0.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/azure-keyvault-webkey-1.0.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/azure-mgmt-appservice-1.27.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/azure-mgmt-batch-1.27.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/azure-mgmt-batchai-1.27.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/azure-mgmt-cdn-1.27.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/azure-mgmt-compute-1.27.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/azure-mgmt-containerinstance-1.27.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/azure-mgmt-containerregistry-1.27.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/azure-mgmt-containerservice-1.27.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/azure-mgmt-cosmosdb-1.27.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/azure-mgmt-dns-1.27.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/azure-mgmt-eventhub-1.27.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/azure-mgmt-graph-rbac-1.27.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/azure-mgmt-keyvault-1.27.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/azure-mgmt-locks-1.27.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/azure-mgmt-monitor-1.27.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/azure-mgmt-msi-1.27.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/azure-mgmt-network-1.27.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/azure-mgmt-redis-1.27.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/azure-mgmt-resources-1.27.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/azure-mgmt-search-1.27.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/azure-mgmt-servicebus-1.27.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/azure-mgmt-sql-1.27.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/azure-mgmt-storage-1.27.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/azure-mgmt-trafficmanager-1.27.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/azure-storage-blob-11.0.1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/client-runtime-1.6.12.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/converter-jackson-2.5.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/hk2-api-2.6.1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/hk2-locator-2.6.1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/hk2-utils-2.6.1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/jackson-datatype-joda-2.9.8.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/javassist-3.22.0-CR2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/javax.mail-1.6.1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/jaxb-api-2.3.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/jcip-annotations-1.0-1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/jersey-hk2-2.29.1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/joda-time-2.1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/json-smart-2.3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/lang-tag-1.4.4.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/logging-interceptor-3.12.2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/nimbus-jose-jwt-8.2.1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/oauth2-oidc-sdk-5.64.4.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/okhttp-3.12.2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/okhttp-urlconnection-3.12.2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/okio-1.15.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/lib/retrofit-2.5.0.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/scc_backend_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/scc_backend_war_exploded.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scc/srv/RedisCache.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/META-INF/scc-backend.kotlin_module" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/scc/setup/AzureManagement.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/scc/setup/AzureProperties.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/META-INF/scc-backend.kotlin_module" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/setup/AzureManagement.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/azurekeys.props" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/azurekeys-westeu.props" beforeDir="false" afterPath="$PROJECT_DIR$/azurekeys-westeu.props" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scc-backend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/scc-backend.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/set-app-config-westeu.sh" beforeDir="false" afterPath="$PROJECT_DIR$/set-app-config-westeu.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/set-app-config.sh" beforeDir="false" afterPath="$PROJECT_DIR$/set-app-config.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scc/resources/Community.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/resources/Community.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scc/resources/Like.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/resources/Like.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scc/resources/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/resources/Post.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scc/setup/AzureManagement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/setup/AzureManagement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scc/setup/AzureProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/setup/AzureProperties.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scc/srv/CommunityResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/srv/CommunityResource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scc/srv/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/srv/MainApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scc/srv/MediaResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/srv/MediaResource.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scc/srv/PagesResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/srv/PagesResource.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scc/srv/PostsResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/srv/PostsResource.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scc/srv/TestProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/srv/TestProperties.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scc/srv/UsersResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/srv/UsersResource.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scc/tests/communitynames.data" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/tests/communitynames.data" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scc/tests/create-posts.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/tests/create-posts.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scc/tests/general-test.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/tests/general-test.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scc/tests/images/get-posts.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/tests/get-users.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scc/tests/runScriptUsers" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/tests/runScriptPosts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scc/tests/get-users.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/tests/get-users.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scc/tests/runScriptPosts" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/tests/runScriptPosts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scc/tests/test-utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/tests/test-utils.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scc/tests/userids.data" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/tests/userids.data" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scc/tests/usernames.data" beforeDir="false" afterPath="$PROJECT_DIR$/src/scc/tests/usernames.data" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/azure-webapp/42997/scc-backend-0.0.1-SNAPSHOT.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/azure-webapp/42997/scc-backend-0.0.1-SNAPSHOT.war" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scc/AzureManagement.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scc/AzureProperties.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/setup/AzureProperties.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/scc/resources/Community.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scc/resources/Community.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/scc/resources/Like.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scc/resources/Like.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/scc/resources/Post.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scc/resources/Post.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/scc/scc_frontend/CreateDatabaseAndCollections.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/scc/scc_frontend/TestAsyncAzure.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/scc/scc_frontend/TestProperties.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/scc/scc_frontend/TestUsers.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/scc/srv/CommunityResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scc/srv/CommunityResource.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/scc/srv/MainApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scc/srv/MainApplication.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/scc/srv/MediaResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scc/srv/MediaResource.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scc/srv/PagesResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scc/srv/PagesResource.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/scc/srv/PostsResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scc/srv/PostsResource.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/scc/srv/TestProperties.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scc/srv/TestProperties.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/scc/srv/UsersResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/scc/srv/UsersResource.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT.war" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/resources/Community.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/resources/Community.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/resources/Like.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/resources/Like.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/resources/Post.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/resources/Post.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/scc_frontend/CreateDatabaseAndCollections.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/scc_frontend/CreateDatabaseAndCollections.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/scc_frontend/TestAsyncAzure.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/scc_frontend/TestAsyncAzure.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/scc_frontend/TestProperties.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/scc_frontend/TestProperties.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/srv/CommunityResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/srv/CommunityResource.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/srv/MainApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/srv/MainApplication.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/srv/MediaResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/srv/MediaResource.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/srv/PagesResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/srv/PagesResource.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/srv/PostsResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/srv/PostsResource.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/srv/TestProperties.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/srv/TestProperties.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/srv/UsersResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scc-backend-0.0.1-SNAPSHOT/WEB-INF/classes/scc/srv/UsersResource.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -160,17 +88,18 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/scc/setup" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="scc.srv" />
+      <recent name="scc.azureFunction" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/scc/tests" />
       <recent name="$PROJECT_DIR$/src/tests" />
       <recent name="$PROJECT_DIR$/src/scc" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="scc.azureFunction" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/src/scc/setup" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -330,7 +259,10 @@
       <workItem from="1574430768292" duration="2515000" />
       <workItem from="1574440046657" duration="13000" />
       <workItem from="1574476672323" duration="2025000" />
-      <workItem from="1574493223703" duration="3292000" />
+      <workItem from="1574493223703" duration="5672000" />
+      <workItem from="1574544405554" duration="2608000" />
+      <workItem from="1574577919368" duration="4593000" />
+      <workItem from="1574598631535" duration="9296000" />
     </task>
     <servers />
   </component>
@@ -352,5 +284,17 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/scc/tests/test-utils.js</url>
+          <line>156</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

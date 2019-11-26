@@ -153,6 +153,7 @@ function endBrowse(context, next) {
 function selectFromPostList(requestParams, response, context, ee, next) {
 	if( response.body && response.body.length > 0) {
 		var resp = JSON.parse( response.body)
+
 		var num = random(resp.posts.length)
 		var i
 		for( i = 0 ; i < num; i ++) {

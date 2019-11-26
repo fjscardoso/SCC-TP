@@ -9,3 +9,4 @@ scc/srv/TestProperties.class
 scc/srv/PagesResource.class
 scc/resources/Like.class
 scc/srv/MainApplication.class
+scc/srv/RedisCache.class
