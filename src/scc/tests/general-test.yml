@@ -32,7 +32,7 @@ scenarios:
               ifTrue: "hasNextimageid"
               url: "/media/{{ nextimageid }}"
               headers:
-                Accept: image/*
+                Accept: application/octet-stream
               afterResponse: "getImageReply"
         whileTrue: "hasMoreInImageList"
       - loop:                          #Browse main loop
@@ -45,7 +45,7 @@ scenarios:
                   ifTrue: "hasNextimageid"
                   url: "/media/{{ nextimageid }}"
                   headers:
-                    Accept: image/*
+                    Accept: application/octet-stream
                   afterResponse: "getImageReply"
             whileTrue: "hasMoreInImageList"
           - post:                                      # execute a like for the post
@@ -69,7 +69,7 @@ scenarios:
                 community: "{{ curcommunity }}"
                 creator: "{{ sessionuser }}"
                 msg: "{{ msg }}"
-                image: "{{ imageId }}"
+                imageId: "{{ imageId }}"
                 parentId: "{{ curid }}"
               afterResponse: "genNewPostReply"
         whileTrue: "endBrowse"                          # continue browsing until deciding to stop
@@ -99,7 +99,7 @@ scenarios:
                 community: "{{ nextcommunity }}"
                 creator: "{{ sessionuser }}"
                 msg: "{{ msg }}"
-                image: "{{ imageId }}"
+                imageId: "{{ imageId }}"
                 parentId: "{{ nextid }}"
               afterResponse: "genNewPostReply"
         whileTrue: "hasMoreInBrowseList"
@@ -124,6 +124,6 @@ scenarios:
             community: "{{ community }}"
             creator: "{{ creator }}"
             msg: "{{ msg }}"
-            image: "{{ imageId }}"
+            imageId: "{{ imageId }}"
             parentId: ""
           afterResponse: "genNewPostReply"

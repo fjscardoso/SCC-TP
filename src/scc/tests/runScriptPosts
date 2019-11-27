@@ -1,1 +1,3 @@
 docker run -v $(pwd):/config -t nunopreguica/ccs1920-test artillery run create-users.yml
+docker run -v $(pwd):/config -t nunopreguica/ccs1920-test artillery run create-communities.yml
+docker run -v $(pwd):/config -t nunopreguica/ccs1920-test artillery run create-posts.yml
